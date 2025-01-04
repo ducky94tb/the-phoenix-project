@@ -41,13 +41,9 @@ dependencies:
   audio_session: ^0.1.21
   flutter_ffmpeg: ^0.4.2
   just_audio: ^0.9.41
-  on_audio_edit:
-    path: Z:/Not-Mine/on_audio_edit
+#  on_audio_edit: ^1.5.1
   on_audio_query: '2.9.0'
-  # metadata_god: '0.5.2+1'
-  metadata_god: ^1.0.0
-    # path: Z:/The Phoenix Project/metadata_god/packages/metadata_god
-
+  metadata_god: '0.5.2+1'
 
   # FLUTTER Related
   awesome_notifications: ^0.9.3+1
@@ -59,15 +55,14 @@ dependencies:
   path_provider: ^2.1.4
   permission_handler: ^11.3.1
   provider: ^6.1.2
-  screenshot: ^3.0.0
-  share_plus: ^8.0.3
+  screenshot: ^2.5.0
+#  share_plus: ^8.0.3
   image: ^4.2.0
   elastic_widgets:
     git: https://github.com/shaan-mephobic/elastic-widgets.git
   # spotify_metadata: ^1.0.0
   mime: ^1.0.5
-  media_store_plus: 
-    path: C:/The Phoenix Project/fork/media_store_plus
+  media_store_plus: ^0.1.3
   # media_store_plus:
   #   git:
   #     url: https://github.com/KyleKun/media_store_plus.git

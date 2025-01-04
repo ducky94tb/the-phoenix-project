@@ -517,14 +517,15 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                 duration:
                                     Duration(milliseconds: crossfadeDuration),
                                 child: Text(
-                                    (advanceAudioData == null
+                                    /*(advanceAudioData == null
                                         ? ""
                                         : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),
                                     key: ValueKey<String>(
                                       (advanceAudioData == null
                                           ? ""
                                           : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),
-                                    ),
+                                    ),*/
+                                    "",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
@@ -1098,7 +1099,7 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                                   milliseconds:
                                                       crossfadeDuration),
                                               child: Text(
-                                                  (advanceAudioData == null
+                                                 /* (advanceAudioData == null
                                                       ? ""
                                                       : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),
                                                   textAlign: TextAlign.center,
@@ -1106,7 +1107,8 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                                     (advanceAudioData == null
                                                         ? ""
                                                         : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),
-                                                  ),
+                                                  ),*/
+                                                  "",
                                                   style: TextStyle(
                                                       overflow:
                                                           TextOverflow.ellipsis,

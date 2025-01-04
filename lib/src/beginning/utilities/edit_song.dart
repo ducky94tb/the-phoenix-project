@@ -5,7 +5,7 @@ import 'package:media_store_plus/media_store_plus.dart';
 import 'package:metadata_god/metadata_god.dart' as god;
 // import 'package:metadata_god/bridge_generated.dart' as god;
 import 'package:mime/mime.dart';
-import 'package:on_audio_edit/on_audio_edit.dart';
+// import 'package:on_audio_edit/on_audio_edit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/native/go_native.dart';
@@ -24,7 +24,7 @@ Future<bool> editSong({
 }) async {
   if (androidSdkVersion <= 29) {
     // no scoped storage - on_audio_edit(Lucas)
-    try {
+    /*try {
       Map<TagType, dynamic> tags = {
         TagType.TITLE: title,
         TagType.ARTIST: artist,
@@ -37,7 +37,8 @@ Future<bool> editSong({
     } catch (e) {
       debugPrint(e.toString());
       return false;
-    }
+    }*/
+    return false;
   } else {
     // copying the file to app Dir and editing using Metadata God for API >= Scoped Storage
     String applicationFileDirectory =
@@ -64,7 +65,7 @@ Future<bool> editSong({
           genre: genre,
           year: int.parse(year ?? "2020"),
           albumArtist: albumArtist,
-          fileSize: BigInt.from(songLength),
+          fileSize: BigInt.from(songLength).toInt(),
           picture: artwork == null
               ? null
               : god.Picture(

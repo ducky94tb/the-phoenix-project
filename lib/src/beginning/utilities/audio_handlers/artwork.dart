@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:on_audio_edit/on_audio_edit.dart' as on_audio_edit;
+// import 'package:on_audio_edit/on_audio_edit.dart' as on_audio_edit;
 import 'package:palette_generator/palette_generator.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
@@ -20,7 +20,7 @@ playerontap({Uint8List? onlineArtwork}) async {
             {})[nowMediaItem.extras!["id"]]] ??
         defaultNone!;
   }
-  advanceAudioData = null;
+  // advanceAudioData = null;
   final sw = Stopwatch();
   if (initialart && listEquals(art, art2)) {
     debugPrint("\n\n\n\n\n 1 \n\n\n\n\n");
@@ -239,10 +239,10 @@ void audioRead() async {
   // sw.start();
   // print("++++++++++++++++```\nRead Audio");
   try {
-    advanceAudioData =
-        await on_audio_edit.OnAudioEdit().readAudio(nowMediaItem.id);
+    /*advanceAudioData =
+        await on_audio_edit.OnAudioEdit().readAudio(nowMediaItem.id);*/
   } catch (e) {
-    advanceAudioData = null;
+    // advanceAudioData = null;
   }
   // sw.stop();
   // print("++++++++++++++++${sw.elapsedMilliseconds}ms\n```\n");

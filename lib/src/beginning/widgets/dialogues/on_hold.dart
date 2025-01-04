@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:on_audio_edit/on_audio_edit.dart';
+// import 'package:on_audio_edit/on_audio_edit.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
@@ -23,7 +23,7 @@ import '../../utilities/page_backend/mansion_back.dart';
 import 'package:phoenix/src/beginning/pages/playlist/playlist_inside.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/screenshot_ui.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
 import '../../utilities/constants.dart';
 import 'package:metadata_god/metadata_god.dart' as god;
 
@@ -269,14 +269,14 @@ class _OnHoldState extends State<OnHold> {
                                                     );
                                                   }
                                                 } else if (i == 3) {
-                                                  await Share.shareFiles(
+                                                  /*await Share.shareFiles(
                                                     [
                                                       widget
                                                           .listOfSong![
                                                               widget.index]
                                                           .data
                                                     ],
-                                                  );
+                                                  );*/
                                                 } else if (i == 4) {
                                                   Navigator.pop(context);
                                                   Navigator.push(
@@ -311,7 +311,7 @@ class _OnHoldState extends State<OnHold> {
                                                   // Edit Song
                                                   try {
                                                     late SongEdit songEditPage;
-                                                    if (androidSdkVersion <=
+                                                    /*if (androidSdkVersion <=
                                                         29) {
                                                       // before Scoped Storage on_audio_edit(Lucas)
                                                       final AudioModel
@@ -385,7 +385,7 @@ class _OnHoldState extends State<OnHold> {
                                                           reverseDuration:
                                                               dialogueAnimationDuration,
                                                           child: songEditPage),
-                                                    );
+                                                    );*/
                                                   } catch (e) {
                                                     debugPrint(e.toString());
                                                     Flushbar(
@@ -645,11 +645,11 @@ class _OnHoldExtendedState extends State<OnHoldExtended> {
                                                       (await getExternalStorageDirectory())!;
                                                   String appDocPath =
                                                       appDocDir.path;
-                                                  await Share.shareFiles(
+                                                 /* await Share.shareFiles(
                                                     [
                                                       '$appDocPath/legendary-er.png'
                                                     ],
-                                                  );
+                                                  );*/
                                                 } else if (i == 1) {
                                                   // Add to Liked Songs
                                                   if (!isSongLiked(
@@ -821,14 +821,14 @@ class _OnHoldExtendedState extends State<OnHoldExtended> {
                                                     );
                                                   }
                                                 } else if (i == 3) {
-                                                  await Share.shareFiles(
+                                                  /*await Share.shareFiles(
                                                     [nowMediaItem.id],
-                                                  );
+                                                  );*/
                                                 } else if (i == 4) {
                                                   // Edit Song
                                                   Navigator.pop(context);
                                                   try {
-                                                    late SongEdit songEditPage;
+                                                    /*late SongEdit songEditPage;
                                                     if (androidSdkVersion <=
                                                         29) {
                                                       // before Scoped Storage on_audio_edit(Lucas)
@@ -896,7 +896,7 @@ class _OnHoldExtendedState extends State<OnHoldExtended> {
                                                           reverseDuration:
                                                               dialogueAnimationDuration,
                                                           child: songEditPage),
-                                                    );
+                                                    );*/
                                                   } catch (e) {
                                                     Flushbar(
                                                       message:

@@ -9,7 +9,7 @@ Future<void> deleteFileWithMediaStore(String filePath) async {
     print("INSIDE $uri");
     bool deleted = await MediaStore().deleteFileUsingUri(
       uriString: uri.toString(),
-      forceUseMediaStore: true,
+      // forceUseMediaStore: true,
     );
     if (deleted) {
       print('File $filePath deleted using MediaStore');

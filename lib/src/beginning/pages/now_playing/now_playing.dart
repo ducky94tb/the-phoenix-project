@@ -470,9 +470,10 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                      (advanceAudioData == null
+                                      /*(advanceAudioData == null
                                           ? ""
-                                          : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),
+                                          : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),*/
+                                      "",
                                       style: TextStyle(
                                           fontSize: deviceWidth! / 37,
                                           fontFamily: "Futura",
@@ -999,9 +1000,10 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                            (advanceAudioData == null
+                                            /*(advanceAudioData == null
                                                 ? ""
-                                                : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),
+                                                : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),*/
+                                            "",
                                             style: TextStyle(
                                                 fontSize: deviceWidth! / 37,
                                                 fontFamily: "Futura",
