@@ -4,8 +4,9 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:provider/provider.dart';
-import '../utilities/provider/provider.dart';
+
 import '../pages/ringtone/ringtone.dart';
+import '../utilities/provider/provider.dart';
 
 bool seekInitiated = false;
 
@@ -360,6 +361,7 @@ class _CyberSkySeekBarState extends State<CyberSkySeekBar> {
 
 class RingtoneSeekBar extends StatefulWidget {
   final Duration duration;
+
   const RingtoneSeekBar({super.key, required this.duration});
 
   @override
@@ -526,19 +528,32 @@ class MiniSeekbar extends StatefulWidget {
 
 class _MiniSeekbarState extends State<MiniSeekbar> {
   Duration currentPosition = Duration.zero;
+  int seekValue = 0;
+  var globalTiming;
+  late StreamSubscription<Duration> posStream;
+
   @override
   void initState() {
-    streamPosition();
+    streamOfPosition();
     super.initState();
   }
 
-  streamPosition() {
-    AudioService.position.listen(
-      (Duration position) {
-        currentPosition =
-            position.inMilliseconds <= nowMediaItem.duration!.inMilliseconds
-                ? position
-                : currentPosition;
+  @override
+  void dispose() {
+    posStream.cancel();
+    super.dispose();
+  }
+
+  streamOfPosition() {
+    posStream = AudioService.position.listen(
+          (Duration position) {
+        currentPosition = position;
+        if (globalTiming != null &&
+            usingSeek == false &&
+            currentPosition.inMilliseconds <=
+                nowMediaItem.duration!.inMilliseconds) {
+          globalTiming.incrementTime(currentPosition.inMilliseconds / 1000);
+        }
       },
     );
   }
@@ -547,28 +562,128 @@ class _MiniSeekbarState extends State<MiniSeekbar> {
   Widget build(BuildContext context) {
     // using same consumer used in main seekbar in now playing
     return Consumer<Seek>(builder: (context, timing, child) {
-      return SizedBox(
-        height: 1,
-        width: orientedCar ? deviceHeight : deviceWidth,
-        child: SliderTheme(
-          data: SliderThemeData(
-            trackHeight: 1,
-            thumbShape: SliderComponentShape.noThumb,
-            trackShape: CustomTrackShape(),
-            thumbColor: Colors.transparent,
-            inactiveTrackColor: musicBox.get("dynamicArtDB") ?? true
-                ? nowContrast.withOpacity(0.1)
-                : Colors.white10,
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                left: orientedCar ? deviceHeight! / 2 / 25 : deviceWidth! / 30),
+            child: Text(
+              !usingSeek
+                  ? currentPosition
+                      .toString()
+                      .replaceRange(0, 2, "")
+                      .replaceRange(
+                          currentPosition
+                              .toString()
+                              .replaceRange(0, 2, "")
+                              .indexOf("."),
+                          currentPosition
+                              .toString()
+                              .replaceRange(0, 2, "")
+                              .length,
+                          "")
+                  : (Duration(seconds: seekValue))
+                      .toString()
+                      .replaceRange(0, 2, "")
+                      .replaceRange(
+                          currentPosition
+                              .toString()
+                              .replaceRange(0, 2, "")
+                              .indexOf("."),
+                          currentPosition
+                              .toString()
+                              .replaceRange(0, 2, "")
+                              .length,
+                          ""),
+              style: TextStyle(
+                  fontSize: deviceWidth! / 35,
+                  shadows: const [
+                    Shadow(
+                      offset: Offset(0.5, 0.5),
+                      blurRadius: 2.0,
+                      color: Colors.black38,
+                    ),
+                  ],
+                  color: musicBox.get("dynamicArtDB") ?? true
+                      ? isArtworkDark!
+                          ? Colors.white
+                          : Colors.black
+                      : Colors.white),
+            ),
           ),
-          child: Slider(
-              activeColor: musicBox.get("dynamicArtDB") ?? true
-                  ? nowContrast
-                  : Colors.white,
-              min: 00.0,
-              max: nowMediaItem.duration!.inMilliseconds * 1.0,
-              value: currentPosition.inMilliseconds * 1.0,
-              onChanged: (double value) {}),
-        ),
+          SizedBox(
+            height: 10,
+            width: orientedCar ? deviceHeight! / 1.5 : deviceWidth! / 1.5,
+            child: SliderTheme(
+              data: SliderThemeData(
+                trackShape: CustomTrackShape(),
+                trackHeight: 2,
+                thumbShape: const RoundSliderThumbShape(
+                    enabledThumbRadius: 1.4),
+                thumbColor: Colors.transparent,
+                inactiveTrackColor: musicBox.get("dynamicArtDB") ?? true
+                    ? nowContrast.withOpacity(0.1)
+                    : Colors.white10,
+              ),
+              child: Slider(
+                  activeColor: musicBox.get("dynamicArtDB") ?? true
+                      ? nowContrast
+                      : Colors.white,
+                  min: 00.0,
+                  max: nowMediaItem.duration!.inMilliseconds / 1000,
+                  value: timing.time,
+                  onChanged: (var valo) async {
+                    usingSeek = true;
+                    seekValue = double.parse('$valo').toInt();
+                    timing.seekIncrementTime(valo);
+                  },
+                  onChangeEnd: (var valuo) {
+                    int seeker = double.parse('$valuo').toInt();
+                    audioHandler.seek(Duration(seconds: seeker));
+                    usingSeek = false;
+                  }),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: orientedCar ? deviceHeight! / 2 / 25 : deviceWidth! / 30),
+            child: Text(
+              nowMediaItem.duration == null
+                  ? Duration(
+                          milliseconds: nowMediaItem.duration!.inMilliseconds)
+                      .toString()
+                  : Duration(
+                          milliseconds: nowMediaItem.duration!.inMilliseconds)
+                      .toString()
+                      .replaceRange(0, 2, "")
+                      .replaceRange(
+                        5,
+                        Duration(
+                                milliseconds:
+                                    nowMediaItem.duration!.inMilliseconds)
+                            .toString()
+                            .replaceRange(0, 2, "")
+                            .length,
+                        "",
+                      ),
+              style: TextStyle(
+                  fontSize: deviceWidth! / 35,
+                  shadows: const [
+                    Shadow(
+                      offset: Offset(0.5, 0.5),
+                      blurRadius: 1.5,
+                      color: Colors.black38,
+                    ),
+                  ],
+                  color: musicBox.get("dynamicArtDB") ?? true
+                      ? isArtworkDark!
+                          ? Colors.white
+                          : Colors.black
+                      : Colors.white),
+            ),
+          )
+        ],
       );
     });
   }

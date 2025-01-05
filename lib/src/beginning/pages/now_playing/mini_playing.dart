@@ -19,6 +19,8 @@ class Moderna extends StatefulWidget {
 class _ModernaState extends State<Moderna> {
   @override
   Widget build(BuildContext context) {
+    bool showButtons = musicBox.get("miniPlayerPosition") == null ||
+        musicBox.get("miniPlayerPosition") == "Bottom";
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
@@ -88,7 +90,7 @@ class _ModernaState extends State<Moderna> {
                 },
                 onTap: () async {
                   HapticFeedback.lightImpact();
-                  pauseResume();
+                  if (!showButtons) pauseResume();
                 },
                 child: Column(
                   children: [
@@ -137,14 +139,13 @@ class _ModernaState extends State<Moderna> {
                       ),
                     ),
                     Visibility(
-                        visible: musicBox.get("miniPlayerPosition") == null
-                            ? true
-                            : musicBox.get("miniPlayerPosition") == "Bottom"
-                                ? true
-                                : false,
+                        visible: showButtons,
                         child: const Column(
                           children: [
-                            MiniSeekbar(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12.0),
+                              child: MiniSeekbar(),
+                            ),
                             ButtonControllers(
                               miniPlaying: true,
                             ),
@@ -171,6 +172,8 @@ class Classix extends StatefulWidget {
 class _ClassixState extends State<Classix> {
   @override
   Widget build(BuildContext context) {
+    bool showButtons = musicBox.get("miniPlayerPosition") == null ||
+        musicBox.get("miniPlayerPosition") == "Bottom";
     return AnimatedContainer(
       duration: Duration(milliseconds: crossfadeDuration),
       decoration: BoxDecoration(
@@ -185,145 +188,124 @@ class _ClassixState extends State<Classix> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Stack(
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(left: deviceWidth! / 20)),
-                        Center(
-                          child: AnimatedCrossFade(
-                            duration: Duration(milliseconds: crossfadeDuration),
-                            firstChild: Card(
-                              elevation: 3,
-                              color: Colors.transparent,
-                              child: Container(
-                                height:
-                                    musicBox.get("squareArt") ?? true ? 48 : 44,
-                                width:
-                                    musicBox.get("squareArt") ?? true ? 48 : 64,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(3),
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: MemoryImage(art!),
-                                  ),
+                GestureDetector(
+                  onHorizontalDragEnd: (DragEndDetails details) async {
+                    gestureDetectorFoo(details);
+                  },
+                  onTap: () async {
+                    HapticFeedback.lightImpact();
+                    if (!showButtons) pauseResume();
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(left: deviceWidth! / 20)),
+                      Center(
+                        child: AnimatedCrossFade(
+                          duration: Duration(milliseconds: crossfadeDuration),
+                          firstChild: Card(
+                            elevation: 3,
+                            color: Colors.transparent,
+                            child: Container(
+                              height:
+                                  musicBox.get("squareArt") ?? true ? 48 : 44,
+                              width:
+                                  musicBox.get("squareArt") ?? true ? 48 : 64,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(3),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: MemoryImage(art!),
                                 ),
                               ),
                             ),
-                            secondChild: Card(
-                              elevation: 3,
-                              color: Colors.transparent,
-                              child: Container(
-                                height:
-                                    musicBox.get("squareArt") ?? true ? 48 : 44,
-                                width:
-                                    musicBox.get("squareArt") ?? true ? 48 : 64,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(3),
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: MemoryImage(art2!),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            crossFadeState: first
-                                ? CrossFadeState.showFirst
-                                : CrossFadeState.showSecond,
                           ),
-                        ),
-                      ],
-                    ),
-                    Positioned.fill(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Stack(
-                          children: [
-                            GestureDetector(
-                              onHorizontalDragEnd:
-                                  (DragEndDetails details) async {
-                                gestureDetectorFoo(details);
-                              },
-                              onTap: () async {
-                                HapticFeedback.lightImpact();
-                                pauseResume();
-                              },
-                              child: Center(
-                                child: Container(
-                                  width: orientedCar
-                                      ? deviceHeight! / 1.6
-                                      : deviceWidth! / 1.6,
-                                  padding: const EdgeInsets.only(
-                                      left: 25, right: 25),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      MarqueeText(
-                                        text: nowMediaItem.title,
-                                        speed: 20,
-                                        style: TextStyle(
-                                          color: musicBox.get("dynamicArtDB") ??
-                                                  true
-                                              ? nowContrast
-                                              : Colors.white,
-                                          fontSize: 19,
-                                          shadows: const [
-                                            Shadow(
-                                              offset: Offset(0.5, 0.5),
-                                              blurRadius: 2.0,
-                                              color: Colors.black38,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Text(
-                                        nowMediaItem.artist!,
-                                        maxLines: 1,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: musicBox.get("dynamicArtDB") ??
-                                                  true
-                                              ? nowContrast
-                                              : Colors.white70,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w300,
-                                          shadows: const [
-                                            Shadow(
-                                              offset: Offset(0.5, 0.5),
-                                              blurRadius: 1.0,
-                                              color: Colors.black26,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                          secondChild: Card(
+                            elevation: 3,
+                            color: Colors.transparent,
+                            child: Container(
+                              height:
+                                  musicBox.get("squareArt") ?? true ? 48 : 44,
+                              width:
+                                  musicBox.get("squareArt") ?? true ? 48 : 64,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(3),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: MemoryImage(art2!),
                                 ),
+                              ),
+                            ),
+                          ),
+                          crossFadeState: first
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
+                        ),
+                      ),
+                      Container(
+                        width: orientedCar
+                            ? deviceHeight! / 1.6
+                            : deviceWidth! / 1.6,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            MarqueeText(
+                              text: nowMediaItem.title,
+                              speed: 20,
+                              style: TextStyle(
+                                color: musicBox.get("dynamicArtDB") ?? true
+                                    ? nowContrast
+                                    : Colors.white,
+                                fontSize: 19,
+                                shadows: const [
+                                  Shadow(
+                                    offset: Offset(0.5, 0.5),
+                                    blurRadius: 2.0,
+                                    color: Colors.black38,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              nowMediaItem.artist!,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: musicBox.get("dynamicArtDB") ?? true
+                                    ? nowContrast
+                                    : Colors.white70,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w300,
+                                shadows: const [
+                                  Shadow(
+                                    offset: Offset(0.5, 0.5),
+                                    blurRadius: 1.0,
+                                    color: Colors.black26,
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
           Visibility(
-              visible: musicBox.get("miniPlayerPosition") == null
-                  ? true
-                  : musicBox.get("miniPlayerPosition") == "Bottom"
-                      ? true
-                      : false,
+              visible: showButtons,
               child: const Column(
                 children: [
-                  MiniSeekbar(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: MiniSeekbar(),
+                  ),
                   ButtonControllers(
                     miniPlaying: true,
                   ),
