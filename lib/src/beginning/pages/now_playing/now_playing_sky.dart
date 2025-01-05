@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remixicon/flutter_remixicon.dart';
@@ -20,6 +21,8 @@ import 'package:phoenix/src/beginning/widgets/dialogues/phoenix_visualizer.dart'
 import 'package:phoenix/src/beginning/widgets/now_art.dart';
 import 'package:phoenix/src/beginning/widgets/seek_bar.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/button_controllers.dart';
 
 class NowPlayingSky extends StatefulWidget {
   const NowPlayingSky({super.key});
@@ -312,143 +315,8 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                         ],
                       ),
                       const CyberSkySeekBar(),
-                      SizedBox(
-                        width: deviceWidth! - 100,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Consumer<Leprovider>(builder: (context, shuf, _) {
-                                return IconButton(
-                                  icon: Icon(Ionicons.shuffle_outline,
-                                      color:
-                                          musicBox.get("dynamicArtDB") ?? true
-                                              ? shuffleSelected
-                                                  ? isArtworkDark!
-                                                      ? Colors.white
-                                                      : Colors.black
-                                                  : isArtworkDark!
-                                                      ? Colors.white
-                                                          .withOpacity(0.4)
-                                                      : Colors.black
-                                                          .withOpacity(0.4)
-                                              : shuffleSelected
-                                                  ? Colors.white
-                                                  : Colors.white38),
-                                  iconSize: deviceWidth! / 18,
-                                  onPressed: () async {
-                                    if (shuffleSelected) {
-                                      shuf.changeShuffle(false);
-                                    } else {
-                                      shuf.changeShuffle(true);
-                                    }
-                                    await shuffleMode();
-                                  },
-                                );
-                              }),
-                              IconButton(
-                                  icon: Icon(
-                                    MdiIcons.skipPrevious,
-                                    color: musicBox.get("dynamicArtDB") ?? true
-                                        ? isArtworkDark!
-                                            ? Colors.white
-                                            : Colors.black
-                                        : Colors.white,
-                                  ),
-                                  iconSize: deviceWidth! / 14,
-                                  onPressed: () async {
-                                    audioHandler.skipToPrevious();
-                                  }),
-                              Container(
-                                width: deviceWidth! / 8,
-                                height: deviceWidth! / 8,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        blurRadius: 8,
-                                        offset: const Offset(0, 2)),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(deviceWidth! / 16),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                        sigmaX: skyBlur, sigmaY: skyBlur),
-                                    child: AnimatedContainer(
-                                      duration: Duration(
-                                          milliseconds: skyFadeDuration),
-                                      color: nowColor.withOpacity(0.3),
-                                      child: Center(
-                                        child: IconButton(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            padding: EdgeInsets.zero,
-                                            icon: AnimatedIcon(
-                                              progress: animatedPlayPause,
-                                              icon: AnimatedIcons.pause_play,
-                                              color: musicBox.get(
-                                                          "dynamicArtDB") ??
-                                                      true
-                                                  ? isArtworkDark!
-                                                      ? Colors.white
-                                                      : Colors.black
-                                                  : Colors.white,
-                                            ),
-                                            iconSize: deviceWidth! / 11,
-                                            alignment: Alignment.center,
-                                            onPressed: () async {
-                                              pauseResume();
-                                            }),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  MdiIcons.skipNext,
-                                  color: musicBox.get("dynamicArtDB") ?? true
-                                      ? isArtworkDark!
-                                          ? Colors.white
-                                          : Colors.black
-                                      : Colors.white,
-                                ),
-                                iconSize: deviceWidth! / 14,
-                                onPressed: () async {
-                                  audioHandler.skipToNext();
-                                },
-                              ),
-                              Consumer<Leprovider>(builder: (context, loo, _) {
-                                return IconButton(
-                                  icon: Icon(
-                                    Ionicons.repeat_outline,
-                                    color: musicBox.get("dynamicArtDB") ?? true
-                                        ? loopSelected
-                                            ? isArtworkDark!
-                                                ? Colors.white
-                                                : Colors.black
-                                            : isArtworkDark!
-                                                ? Colors.white.withOpacity(0.4)
-                                                : Colors.black.withOpacity(0.4)
-                                        : loopSelected
-                                            ? Colors.white
-                                            : Colors.white38,
-                                  ),
-                                  iconSize: deviceWidth! / 17,
-                                  onPressed: () async {
-                                    if (loopSelected) {
-                                      loo.changeLoop(false);
-                                    } else {
-                                      loo.changeLoop(true);
-                                    }
-                                    await loopMode();
-                                  },
-                                );
-                              }),
-                            ]),
-                      ),
+                      ButtonControllers(
+                          skyBlur: skyBlur, skyFadeDuration: skyFadeDuration),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1099,7 +967,7 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                                   milliseconds:
                                                       crossfadeDuration),
                                               child: Text(
-                                                 /* (advanceAudioData == null
+                                                  /* (advanceAudioData == null
                                                       ? ""
                                                       : "${advanceAudioData!.bitrate}Kbps ${advanceAudioData!.sampleRate}KHz ${advanceAudioData!.format}"),
                                                   textAlign: TextAlign.center,

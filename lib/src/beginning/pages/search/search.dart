@@ -125,7 +125,7 @@ class _SearchinState extends State<Searchin> {
         parallaxEnabled: true,
         isDraggable: true,
         backdropColor: Colors.black,
-        minHeight: 60,
+        minHeight: 120,
         controller: searchPC,
         borderRadius: musicBox.get("classix") ?? true
             ? null

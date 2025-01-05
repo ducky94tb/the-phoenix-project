@@ -1,10 +1,12 @@
 import 'dart:ui';
-import 'package:phoenix/src/beginning/utilities/global_variables.dart';
-import 'package:phoenix/src/beginning/widgets/custom/marquee.dart';
-import 'package:phoenix/src/beginning/utilities/constants.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
+import 'package:phoenix/src/beginning/utilities/constants.dart';
+import 'package:phoenix/src/beginning/utilities/global_variables.dart';
+import 'package:phoenix/src/beginning/widgets/button_controllers.dart';
+import 'package:phoenix/src/beginning/widgets/custom/marquee.dart';
 import 'package:phoenix/src/beginning/widgets/seek_bar.dart';
 
 class Moderna extends StatefulWidget {
@@ -37,7 +39,7 @@ class _ModernaState extends State<Moderna> {
               ),
               child: Center(
                 child: Container(
-                  height: 60,
+                  height: 120,
                   width: orientedCar ? deviceHeight : deviceWidth,
                   decoration: BoxDecoration(
                     borderRadius: radiusFullscreen,
@@ -56,7 +58,7 @@ class _ModernaState extends State<Moderna> {
               ),
               child: Center(
                 child: Container(
-                  height: 60,
+                  height: 120,
                   width: orientedCar ? deviceHeight : deviceWidth,
                   decoration: BoxDecoration(
                     borderRadius: radiusFullscreen,
@@ -88,49 +90,67 @@ class _ModernaState extends State<Moderna> {
                   HapticFeedback.lightImpact();
                   pauseResume();
                 },
-                child: Center(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: deviceWidth! / 18, right: deviceWidth! / 18),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        MarqueeText(
-                          text: nowMediaItem.title,
-                          speed: 20,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 19,
-                            shadows: [
-                              Shadow(
-                                offset: Offset(0.5, 0.5),
-                                blurRadius: 2.0,
-                                color: Colors.black38,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            left: deviceWidth! / 18, right: deviceWidth! / 18),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            MarqueeText(
+                              text: nowMediaItem.title,
+                              speed: 20,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 19,
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(0.5, 0.5),
+                                    blurRadius: 2.0,
+                                    color: Colors.black38,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          nowMediaItem.artist!,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w300,
-                            shadows: [
-                              Shadow(
-                                offset: Offset(0.5, 0.5),
-                                blurRadius: 1.0,
-                                color: Colors.black26,
+                            ),
+                            Text(
+                              nowMediaItem.artist!,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w300,
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(0.5, 0.5),
+                                    blurRadius: 1.0,
+                                    color: Colors.black26,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Visibility(
+                        visible: musicBox.get("miniPlayerPosition") == null
+                            ? true
+                            : musicBox.get("miniPlayerPosition") == "Bottom"
+                                ? true
+                                : false,
+                        child: const Column(
+                          children: [
+                            MiniSeekbar(),
+                            ButtonControllers(
+                              miniPlaying: true,
+                            ),
+                          ],
+                        )),
+                  ],
                 ),
               ),
             ],
@@ -301,7 +321,14 @@ class _ClassixState extends State<Classix> {
                   : musicBox.get("miniPlayerPosition") == "Bottom"
                       ? true
                       : false,
-              child: const MiniSeekbar()),
+              child: const Column(
+                children: [
+                  MiniSeekbar(),
+                  ButtonControllers(
+                    miniPlaying: true,
+                  ),
+                ],
+              )),
         ],
       ),
     );

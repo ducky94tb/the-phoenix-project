@@ -63,7 +63,7 @@ class _GenresInsideState extends State<GenresInside> {
         parallaxEnabled: true,
         isDraggable: true,
         backdropColor: Colors.black,
-        minHeight: 60,
+        minHeight: 120,
         controller: genresPC,
         borderRadius: musicBox.get("classix") ?? true
             ? null

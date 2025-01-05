@@ -316,7 +316,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                         children: [
                                           Padding(
                                               padding: EdgeInsets.only(
-                                                  top: deviceWidth! / 30)),
+                                                  top: deviceWidth! / 40)),
                                           PhysicalModel(
                                             color: Colors.transparent,
                                             borderRadius:

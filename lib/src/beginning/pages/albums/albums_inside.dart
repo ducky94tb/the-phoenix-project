@@ -54,7 +54,7 @@ class _AlbumsInsideState extends State<AlbumsInside> {
           parallaxEnabled: true,
           isDraggable: true,
           backdropColor: Colors.black,
-          minHeight: 60,
+          minHeight: 120,
           controller: albumPC,
           borderRadius: musicBox.get("classix") ?? true
               ? null

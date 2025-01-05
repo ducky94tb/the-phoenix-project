@@ -60,7 +60,7 @@ class _ArtistsInsideState extends State<ArtistsInside> {
         parallaxEnabled: true,
         isDraggable: true,
         backdropColor: Colors.black,
-        minHeight: 60,
+        minHeight: 120,
         controller: artistPC,
         borderRadius: musicBox.get("classix") ?? true
             ? null

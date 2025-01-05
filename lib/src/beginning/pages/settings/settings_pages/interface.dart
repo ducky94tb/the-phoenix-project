@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/services.dart';
-import 'package:phoenix/src/beginning/pages/settings/settings_pages/glass_effect.dart';
-import 'package:phoenix/src/beginning/utilities/global_variables.dart';
-import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
-import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:phoenix/src/beginning/pages/settings/settings_pages/glass_effect.dart';
+import 'package:phoenix/src/beginning/utilities/constants.dart';
+import 'package:phoenix/src/beginning/utilities/global_variables.dart';
+import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
+import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
+import 'package:provider/provider.dart';
 
 class Interface extends StatefulWidget {
   const Interface({super.key});
@@ -329,39 +329,37 @@ class _InterfaceState extends State<Interface> {
                           controlAffinity: ListTileControlAffinity.leading,
                         ),
                       ),
-                      // Material(
-                      //   color: Colors.transparent,
-                      //   child: CheckboxListTile(
-                      //     activeColor: kCorrect,
-                      //     checkColor:
-                      //         darkModeOn ? kMaterialBlack : Colors.white,
-                      //     subtitle: Text(
-                      //       "Use regular mini-player design.",
-                      //       style: TextStyle(
-                      //         color:
-                      //             darkModeOn ? Colors.white38 : Colors.black38,
-                      //       ),
-                      //     ),
-                      //     title: Text(
-                      //       "Classix Mini-Player",
-                      //       style: TextStyle(
-                      //         color: darkModeOn ? Colors.white : Colors.black,
-                      //       ),
-                      //     ),
-                      //     value: musicBox.get("classix") ?? true,
-                      //     onChanged: (newValue) {
-                      //       setState(() {
-                      //         musicBox.put("classix", newValue);
-                      //       });
-                      //     },
-                      //     controlAffinity: ListTileControlAffinity.leading,
-                      //   ),
-                      // ),
+                      Material(
+                        color: Colors.transparent,
+                        child: CheckboxListTile(
+                          activeColor: kCorrect,
+                          checkColor: kMaterialBlack,
+                          subtitle: const Text(
+                            "Use regular mini-player design.",
+                            style: TextStyle(
+                              color: Colors.white38,
+                            ),
+                          ),
+                          title: const Text(
+                            "Classix Mini-Player",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          value: musicBox.get("classix") ?? true,
+                          onChanged: (newValue) {
+                            setState(() {
+                              musicBox.put("classix", newValue);
+                            });
+                          },
+                          controlAffinity: ListTileControlAffinity.leading,
+                        ),
+                      ),
                       Material(
                         color: Colors.transparent,
                         child: ListTile(
                             subtitle: const Text(
-                              "Show progress in mini-player.",
+                              "Show buttons in mini-player.",
                               style: TextStyle(
                                 color: Colors.white38,
                               ),

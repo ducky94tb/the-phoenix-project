@@ -1,42 +1,47 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:async';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_remixicon/flutter_remixicon.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums.dart';
+import 'package:phoenix/src/beginning/pages/artists/artists.dart';
+import 'package:phoenix/src/beginning/pages/genres/genres.dart';
+import 'package:phoenix/src/beginning/pages/mansion/mansion.dart';
+import 'package:phoenix/src/beginning/pages/now_playing/mini_playing.dart';
 import 'package:phoenix/src/beginning/pages/now_playing/now_playing_sky.dart';
+import 'package:phoenix/src/beginning/pages/playlist/playlist.dart';
+import 'package:phoenix/src/beginning/pages/search/search.dart';
+import 'package:phoenix/src/beginning/pages/settings/settings.dart';
+import 'package:phoenix/src/beginning/pages/settings/settings_pages/interface.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
+import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
+import 'package:phoenix/src/beginning/utilities/tab_bar.dart';
+import 'package:phoenix/src/beginning/utilities/visualizer_notification.dart';
+import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
 import 'package:phoenix/src/beginning/widgets/custom/graviticons.dart';
+import 'package:phoenix/src/beginning/widgets/custom/physics.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/phoenix_visualizer.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/quick_tips.dart';
-import 'package:phoenix/src/beginning/pages/now_playing/mini_playing.dart';
-import 'package:phoenix/src/beginning/pages/playlist/playlist.dart';
-import 'package:phoenix/src/beginning/pages/settings/settings.dart';
-import 'pages/tracks/tracks.dart';
-import 'package:phoenix/src/beginning/pages/genres/genres.dart';
-import 'package:phoenix/src/beginning/pages/artists/artists.dart';
-import 'package:phoenix/src/beginning/pages/search/search.dart';
-import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
-import 'package:phoenix/src/beginning/pages/mansion/mansion.dart';
-import 'package:phoenix/src/beginning/widgets/custom/physics.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
-import 'package:phoenix/src/beginning/utilities/tab_bar.dart';
-import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/material.dart';
-import 'package:phoenix/src/beginning/utilities/visualizer_notification.dart';
-import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:flutter_remixicon/flutter_remixicon.dart';
+
+import 'pages/tracks/tracks.dart';
 
 class Begin extends StatefulWidget {
   static final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   static bool isLoading = true;
+
   const Begin({super.key});
+
   @override
   State<Begin> createState() => _BeginState();
 }
@@ -130,7 +135,7 @@ class _BeginState extends State<Begin>
           parallaxEnabled: true,
           isDraggable: true,
           backdropColor: Colors.black,
-          minHeight: 60,
+          minHeight: 120,
           controller: pc,
           borderRadius: musicBox.get("classix") ?? true
               ? null
@@ -149,7 +154,7 @@ class _BeginState extends State<Begin>
               rootState.provideman();
             }
           },
-          collapsed: Classix(),
+          collapsed: musicBox.get("classix") ?? true ? Classix() : Moderna(),
           maxHeight: deviceHeight!,
           backdropTapClosesPanel: true,
           renderPanelSheet: true,
@@ -236,7 +241,6 @@ class _BeginState extends State<Begin>
                             labelColor: musicBox.get("dynamicArtDB") ?? true
                                 ? Colors.white
                                 : Colors.white,
-                            indicatorWeight: 0.000001,
                             tabAlignment: TabAlignment.start,
                             isScrollable: true,
                             enableFeedback: false,
@@ -254,7 +258,7 @@ class _BeginState extends State<Begin>
                     Expanded(
                       child: Padding(
                         padding:
-                            EdgeInsets.only(bottom: isPlayerShown ? 60 : 0),
+                            EdgeInsets.only(bottom: isPlayerShown ? 120 : 0),
                         child: TabBarView(
                           physics: const CustomPageViewScrollPhysics(),
                           controller: tabController,
@@ -495,7 +499,7 @@ class _BeginState extends State<Begin>
                                           ),
                                         ],
                                         builder: (context, child) =>
-                                            const Settings(),
+                                            const Interface(),
                                       ),
                                     ),
                                   ).then((value) {
