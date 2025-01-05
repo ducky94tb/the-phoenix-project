@@ -1,17 +1,18 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:phoenix/src/beginning/utilities/global_variables.dart';
-import 'package:phoenix/src/beginning/utilities/native/go_native.dart';
-import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
-import '../page_backend/artists_back.dart';
 import 'package:phoenix/src/beginning/pages/genres/genres.dart';
 import 'package:phoenix/src/beginning/pages/genres/genres_inside.dart';
 import 'package:phoenix/src/beginning/pages/playlist/playlist_inside.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/artwork.dart';
-import 'package:phoenix/src/beginning/utilities/screenshot_ui.dart';
-import '../page_backend/mansion_back.dart';
 import 'package:phoenix/src/beginning/utilities/apis/lyrics_scrape.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/artwork.dart';
+import 'package:phoenix/src/beginning/utilities/global_variables.dart';
+import 'package:phoenix/src/beginning/utilities/native/go_native.dart';
+import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
+import 'package:phoenix/src/beginning/utilities/screenshot_ui.dart';
+
 import '../filters.dart';
+import '../page_backend/artists_back.dart';
+import '../page_backend/mansion_back.dart';
 
 int? indexofcurrent;
 String? lyricsDat = " ";
@@ -94,7 +95,29 @@ playThis(int indexOfSong, String rnAccess, {Map? saavnData}) async {
         indexOfSong, insideplaylistSongsInside, playlistMediaItems);
   } else if (rnAccess == "online") {
     rnAccessing = "online";
-    //  {id: sxZ-SMqJ, type: song, album: ICYMI, year: 2022, duration: 380, language: English, genre: English, 320kbps: true, has_lyrics: true, lyrics_snippet: That I'm caved in and breaking up, release_date: null, album_id: 37130265, subtitle: Eden - ICYMI, title: Call Me Back, artist: Eden, album_artist: , image: https://c.saavncdn.com/925/ICYMI-English-2022-20220923134442-500x500.jpg, perma_url: https://www.jiosaavn.com/song/call-me-back/AxAxHCd9Rnk, url: https://aac.saavncdn.com/925/c7a257565435daa47305868fc6ccf9b7_96.mp4}
+    saavnData = {
+      "id": "sxZ-SMqJ",
+      "type": "song",
+      "album": "ICYMI",
+      "year": 2022,
+      "duration": "380",
+      "language": "English",
+      "genre": "English",
+      "320kbps": true,
+      "has_lyrics": true,
+      "lyrics_snippet": "That I'm caved in and breaking up",
+      "release_date": null,
+      "album_id": 37130265,
+      "subtitle": "Eden - ICYMI",
+      "title": "Call Me Back",
+      "artist": "Eden",
+      "album_artist": "",
+      "image":
+          "https://c.saavncdn.com/925/ICYMI-English-2022-20220923134442-500x500.jpg",
+      "perma_url": "https://www.jiosaavn.com/song/call-me-back/AxAxHCd9Rnk",
+      "url":
+          "https://aac.saavncdn.com/925/c7a257565435daa47305868fc6ccf9b7_96.mp4"
+    };
     await audioHandler.updateQueue([
       MediaItem(
         id: saavnData!['url'],

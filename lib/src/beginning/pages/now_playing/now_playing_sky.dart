@@ -73,10 +73,12 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                       duration: Duration(milliseconds: skyFadeDuration),
                       firstChild: Container(
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: MemoryImage(art!),
-                            fit: BoxFit.cover,
-                          ),
+                          image: art == null
+                              ? null
+                              : DecorationImage(
+                                  image: MemoryImage(art!),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(
@@ -98,10 +100,12 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                       ),
                       secondChild: Container(
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: MemoryImage(art2!),
-                            fit: BoxFit.cover,
-                          ),
+                          image: art2 == null
+                              ? null
+                              : DecorationImage(
+                                  image: MemoryImage(art2!),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(

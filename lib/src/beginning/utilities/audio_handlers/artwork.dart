@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:on_audio_edit/on_audio_edit.dart' as on_audio_edit;
 import 'package:palette_generator/palette_generator.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
+
 import '../../widgets/artwork_background.dart';
 
 Uint8List? artOfOnline;
@@ -91,7 +93,7 @@ playerontap({Uint8List? onlineArtwork}) async {
   sw.start();
   debugPrint("-------```\nColor Audio");
   if (rnAccessing == "online") {
-    await getImagePalette(artwork!);
+    if (artwork != null) await getImagePalette(artwork!);
   } else {
     if (musicBox.get("colorsDB") == null
         ? true

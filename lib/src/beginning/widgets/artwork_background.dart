@@ -1,7 +1,8 @@
 import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
-import 'package:flutter/material.dart';
 
 late var globaltaste;
 
@@ -112,10 +113,12 @@ class _BackArtState extends State<BackArt> {
             duration: Duration(milliseconds: crossfadeDuration),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: MemoryImage(art!),
-                  fit: BoxFit.cover,
-                ),
+                image: art == null
+                    ? null
+                    : DecorationImage(
+                        image: MemoryImage(art!),
+                        fit: BoxFit.cover,
+                      ),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(
@@ -140,10 +143,12 @@ class _BackArtState extends State<BackArt> {
               duration: Duration(milliseconds: crossfadeDuration),
               child: Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: MemoryImage(art2!),
-                    fit: BoxFit.cover,
-                  ),
+                  image: art2 == null
+                      ? null
+                      : DecorationImage(
+                          image: MemoryImage(art2!),
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(

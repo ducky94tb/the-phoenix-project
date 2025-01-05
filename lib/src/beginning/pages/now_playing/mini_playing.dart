@@ -32,10 +32,12 @@ class _ModernaState extends State<Moderna> {
             duration: Duration(milliseconds: crossfadeDuration),
             firstChild: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: MemoryImage(art!),
-                  fit: BoxFit.fitWidth,
-                ),
+                image: art == null
+                    ? null
+                    : DecorationImage(
+                        image: MemoryImage(art!),
+                        fit: BoxFit.fitWidth,
+                      ),
                 color: Colors.black,
                 borderRadius: radiusFullscreen,
               ),
@@ -51,10 +53,12 @@ class _ModernaState extends State<Moderna> {
             ),
             secondChild: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: MemoryImage(art2!),
-                  fit: BoxFit.fitWidth,
-                ),
+                image: art2 == null
+                    ? null
+                    : DecorationImage(
+                        image: MemoryImage(art2!),
+                        fit: BoxFit.fitWidth,
+                      ),
                 borderRadius: radiusFullscreen,
                 color: Colors.black,
               ),
