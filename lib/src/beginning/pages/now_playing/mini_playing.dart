@@ -194,10 +194,12 @@ class _ClassixState extends State<Classix> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(3),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: MemoryImage(art!),
-                              ),
+                              image: art == null
+                                  ? null
+                                  : DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: MemoryImage(art!),
+                                    ),
                             ),
                           ),
                         ),
@@ -210,10 +212,12 @@ class _ClassixState extends State<Classix> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(3),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: MemoryImage(art2!),
-                              ),
+                              image: art2 == null
+                                  ? null
+                                  : DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: MemoryImage(art2!),
+                                    ),
                             ),
                           ),
                         ),
