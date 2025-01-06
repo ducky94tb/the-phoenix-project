@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phoenix/src/beginning/widgets/play_back_speed_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../utilities/audio_handlers/previous_play_skip.dart';
@@ -23,10 +24,13 @@ class ButtonControllers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final delta = miniPlaying? 14: 8;
+    final delta = miniPlaying ? 14 : 8;
     return SizedBox(
-      width: deviceWidth! - 100,
+      width: deviceWidth! - 10,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        const SizedBox(
+          width: 12,
+        ),
         Consumer<Leprovider>(builder: (context, shuf, _) {
           return IconButton(
             icon: Icon(Ionicons.shuffle_outline,
@@ -98,7 +102,7 @@ class ButtonControllers extends StatelessWidget {
                                 : Colors.black
                             : Colors.white,
                       ),
-                      iconSize: deviceWidth! / (miniPlaying? delta: 11),
+                      iconSize: deviceWidth! / (miniPlaying ? delta : 11),
                       alignment: Alignment.center,
                       onPressed: () async {
                         pauseResume();
@@ -149,7 +153,57 @@ class ButtonControllers extends StatelessWidget {
             },
           );
         }),
+        Consumer<Leprovider>(builder: (context, loo, _) {
+          return Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 12.0),
+                child: IconButton(
+                  icon: Icon(Icons.slow_motion_video,
+                      color: isArtworkDark! ? Colors.white : Colors.black),
+                  iconSize: deviceWidth! / 17,
+                  onPressed: () {
+                    _showPlaybackSpeedDialog(context, loo);
+                  },
+                ),
+              ),
+              Positioned(
+                right: 0,
+                top: 2,
+                child: Text(
+                  "${playbackSpeed}x",
+                  style: TextStyle(
+                      color: isArtworkDark!
+                          ? Colors.white.withOpacity(0.7)
+                          : Colors.black.withOpacity(0.7),
+                      fontSize: 12.0),
+                ),
+              )
+            ],
+          );
+        }),
       ]),
     );
   }
+}
+
+Future<void> _showPlaybackSpeedDialog(
+    BuildContext context, Leprovider loo) async {
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    isDismissible: false,
+    builder: (context) {
+      return PlaybackSpeedSelector(
+        currentSpeed: playbackSpeed,
+        onSpeedSelected: (speed) async {
+          Navigator.pop(context); // Close the bottom sheet
+          loo.changeSpeed(speed);
+          await speedMode();
+        },
+      );
+    },
+  );
 }

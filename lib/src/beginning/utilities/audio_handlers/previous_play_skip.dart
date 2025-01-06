@@ -207,6 +207,10 @@ Future<void> loopMode() async {
   }
 }
 
+Future<void> speedMode() async {
+  await audioHandler.setSpeed(playbackSpeed);
+}
+
 Future<void> shuffleMode() async {
   if (shuffleSelected) {
     await audioHandler.setShuffleMode(AudioServiceShuffleMode.all);

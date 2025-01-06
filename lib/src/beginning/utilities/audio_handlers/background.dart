@@ -163,6 +163,11 @@ class AudioPlayerTask extends BaseAudioHandler {
   }
 
   @override
+  Future<void> setSpeed(double speed) async {
+    _audioPlayer.setSpeed(speed);
+  }
+
+  @override
   Future<void> play() async {
     _audioPlayer.play();
   }

@@ -1,5 +1,5 @@
-import 'package:phoenix/src/beginning/pages/settings/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:phoenix/src/beginning/pages/settings/settings.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 
 bool usingSeek = false;
@@ -18,6 +18,11 @@ class Leprovider with ChangeNotifier {
 
   changeShuffle(bool w) {
     shuffleSelected = w;
+    notifyListeners();
+  }
+
+  changeSpeed(double speed) {
+    playbackSpeed = speed;
     notifyListeners();
   }
 }
@@ -39,6 +44,7 @@ class MrMan with ChangeNotifier {
 
 class Seek with ChangeNotifier {
   double time = 00.0;
+
   incrementTime(double sent) {
     if (!usingSeek) {
       time = sent;
@@ -54,6 +60,7 @@ class Seek with ChangeNotifier {
 
 class Astronautintheocean with ChangeNotifier {
   List searchen = [];
+
   thesearch(astranau) {
     searchen = astranau;
     notifyListeners();
