@@ -390,7 +390,7 @@ class _InterfaceState extends State<Interface> {
                                 setState(() {});
                               },
                               items: <String>[
-                                // 'Top',
+                                'Top',
                                 'Bottom',
                                 'Hidden',
                               ].map<DropdownMenuItem<String>>((String value) {
