@@ -70,7 +70,7 @@ dependencies:
 
   #  OWN DATA Related
   dart_rss: ^3.0.3
-
+  cached_network_image: ^3.3.1
 
   # DATABASE Related
   hive: ^2.2.3

@@ -1,21 +1,22 @@
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums.dart';
+import 'package:phoenix/src/beginning/pages/albums/albums_inside.dart';
+import 'package:phoenix/src/beginning/pages/artists/artists_inside.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
+import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/init.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
-import 'package:phoenix/src/beginning/pages/albums/albums_inside.dart';
-import 'package:phoenix/src/beginning/widgets/artist_collage.dart';
-import '../../utilities/page_backend/artists_back.dart';
-import 'package:phoenix/src/beginning/pages/artists/artists_inside.dart';
-import 'package:phoenix/src/beginning/widgets/dialogues/awakening.dart';
-import 'package:phoenix/src/beginning/utilities/constants.dart';
-import 'package:phoenix/src/beginning/widgets/dialogues/corrupted_file_dialog.dart';
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
+import 'package:phoenix/src/beginning/widgets/dialogues/awakening.dart';
+import 'package:phoenix/src/beginning/widgets/dialogues/corrupted_file_dialog.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/on_hold.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../utilities/page_backend/artists_back.dart';
 import '../../utilities/page_backend/mansion_back.dart';
 
 var globalMansionConsumer;
@@ -32,6 +33,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
   List<int> albumIndex = [69420, 69421, 69422, 69423, 69424, 69425];
   List<int> artistIndex = [69420, 69421, 69422, 69423, 69424, 69425];
   String? downloadInput;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -162,7 +164,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
               //             color: Colors.black,
               //           ),
               //           onPressed: () async {
-              //             
+              //
               //             FocusManager.instance.primaryFocus?.unfocus();
               //             if (downloadInput == null || downloadInput!.isEmpty) {
               //               Flushbar(
@@ -331,13 +333,9 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                                         kRounded),
                                                 image: DecorationImage(
                                                   fit: BoxFit.cover,
-                                                  image: MemoryImage(
-                                                      artworksData[(musicBox.get(
-                                                                  "artworksPointer") ??
-                                                              {})[recentPlayed[
-                                                                  index]
-                                                              .id]] ??
-                                                          defaultNone!),
+                                                  image: NetworkImage(
+                                                      recentPlayed[index]
+                                                          .getMap["image"]),
                                                 ),
                                               ),
                                             ),
@@ -467,13 +465,9 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                                 BorderRadius.circular(kRounded),
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
-                                              image: MemoryImage(artworksData[
-                                                      (musicBox.get(
-                                                              "artworksPointer") ??
-                                                          {})[alwaysPlayed[
-                                                              index]
-                                                          .id]] ??
-                                                  defaultNone!),
+                                              image: NetworkImage(
+                                                  alwaysPlayed[index]
+                                                      .getMap["image"]),
                                             ),
                                           ),
                                         ),
@@ -772,7 +766,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                   width: deviceWidth! / 2.5,
                                   child: Column(
                                     children: [
-                                      Padding(
+                                      /*Padding(
                                           padding: EdgeInsets.only(
                                               top: deviceWidth! / 30)),
                                       PhysicalModel(
@@ -791,7 +785,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                               deviceWidth! / 1.5,
                                               deviceWidth! / 3),
                                         ),
-                                      ),
+                                      ),*/
                                       Padding(
                                           padding: EdgeInsets.only(
                                               top: deviceWidth! / 40)),

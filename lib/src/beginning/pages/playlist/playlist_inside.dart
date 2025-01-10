@@ -1,21 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:phoenix/src/beginning/pages/now_playing/mini_playing.dart';
 import 'package:phoenix/src/beginning/pages/now_playing/now_playing_sky.dart';
-import 'package:phoenix/src/beginning/utilities/global_variables.dart';
-import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
-import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
-import 'package:phoenix/src/beginning/widgets/dialogues/corrupted_file_dialog.dart';
+import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
+import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
+import 'package:phoenix/src/beginning/widgets/dialogues/corrupted_file_dialog.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/quick_tips.dart';
 import 'package:phoenix/src/beginning/widgets/list_header.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import '../../utilities/page_backend/playlist_back.dart';
 
 List<SongModel> playlistSongsInside = [];
@@ -24,7 +24,9 @@ List<MediaItem> playlistMediaItems = [];
 
 class PlaylistInside extends StatefulWidget {
   final String? playlistName;
+
   const PlaylistInside({super.key, required this.playlistName});
+
   @override
   State<PlaylistInside> createState() => _PlaylistInsideState();
 }
@@ -196,13 +198,9 @@ class _PlaylistInsideState extends State<PlaylistInside> {
                                               BorderRadius.circular(3),
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: MemoryImage(artworksData[
-                                                    (musicBox.get(
-                                                            "artworksPointer") ??
-                                                        {})[playlistSongsInside[
-                                                            index]
-                                                        .id]] ??
-                                                defaultNone!),
+                                            image: NetworkImage(
+                                                playlistSongsInside[index]
+                                                    .getMap["image"]),
                                           ),
                                         ),
                                       ),

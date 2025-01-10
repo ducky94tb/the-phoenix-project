@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/begin.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/init.dart';
-import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/corrupted_file_dialog.dart';
 import 'package:phoenix/src/beginning/widgets/list_header.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
-import 'package:flutter/material.dart';
+
 import '../../widgets/dialogues/on_hold.dart';
 
 class Allofem extends StatefulWidget {
@@ -20,6 +20,7 @@ class Allofem extends StatefulWidget {
 class _AllofemState extends State<Allofem>
     with AutomaticKeepAliveClientMixin<Allofem> {
   ScrollController? _scrollBarController;
+
   @override
   void initState() {
     _scrollBarController = ScrollController();
@@ -28,6 +29,7 @@ class _AllofemState extends State<Allofem>
 
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -146,10 +148,8 @@ class _AllofemState extends State<Allofem>
                         borderRadius: BorderRadius.circular(3),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: MemoryImage(artworksData[
-                                  (musicBox.get("artworksPointer") ??
-                                      {})[songList[index - 1].id]] ??
-                              defaultNone!),
+                          image:
+                              NetworkImage(songList[index - 1].getMap["image"]),
                         ),
                       ),
                     ),

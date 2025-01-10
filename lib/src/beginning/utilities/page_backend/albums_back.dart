@@ -61,26 +61,65 @@ Future<Uint8List?> getImageBytes(String imageUrl) async {
 
 //TODO albumModel's album on_audio_query returns null while it is not nullable. See error in the page end which was reported from one device.
 gettinAlbums() async {
+  allRss = [];
   allAlbums = [];
   albumsArts = {};
   inAlbumSongs = [];
   inAlbumSongsArtIndex = [];
   insideInAlbumSongs = [];
   allAlbumsName = [];
+  songList = [];
+  List songSortTypes = [
+    SongSortType.TITLE,
+    SongSortType.DATE_ADDED,
+    SongSortType.ALBUM,
+    SongSortType.ARTIST
+  ];
+  final sortType = songSortTypes[(musicBox.get('trackSort') ?? [0])[0]];
+  final orderType = (musicBox.get('trackSort') ?? [0, 4])[1] == 4
+      ? OrderType.ASC_OR_SMALLER
+      : OrderType.DESC_OR_GREATER;
   for (int i = 0; i < rssUrls.length; i++) {
     var rssFeed = await loadFeed(rssUrls[i]);
     if (rssFeed != null) {
       allRss.add(rssFeed);
-      allAlbums.add(AlbumModel({
+      var album = AlbumModel({
         "_id": rssFeed.hashCode,
         "album": rssFeed.title,
         "artist": rssFeed.author,
         "numsongs": rssFeed.items.length,
         "image": rssFeed.image?.url,
-      }));
+      });
+      allAlbums.add(album);
       allAlbumsName.add(rssFeed.title);
+      final items = rssFeed.items;
+      for (int i = 0; i < items.length; i++) {
+        final model = songModelFromRssItem(items[i], album);
+        songList.add(model);
+      }
     }
   }
+  songList.sort(
+    (a, b) {
+      int r = 0;
+      switch (sortType) {
+        case SongSortType.TITLE:
+          r = a.title.compareTo(b.title);
+          break;
+        case SongSortType.DATE_ADDED:
+          r = (a.getMap['pubDate'] as String)
+              .compareTo(b.getMap['pubDate'] as String);
+          break;
+        case SongSortType.ALBUM:
+          r = a.album?.compareTo(b?.album ?? "") ?? 0;
+          break;
+        case SongSortType.ARTIST:
+          r = a.artist?.compareTo(b?.artist ?? "") ?? 0;
+          break;
+      }
+      return orderType == OrderType.ASC_OR_SMALLER ? r : -r;
+    },
+  );
 }
 
 gettinAlbumsArts() async {
@@ -124,6 +163,31 @@ gettinAlbumsArts() async {
   musicBox.put("AlbumsWithoutArt", albumswoArt);
 }
 
+songModelFromRssItem(RssItem item, AlbumModel album) {
+  var enclosure = item.enclosure;
+  final extension = enclosure?.url?.split('.').last ?? ".mp3";
+  return SongModel({
+    "_id": item.hashCode,
+    "_display_name": item.title ?? "-",
+    "_display_name_wo_ext": item.title ?? "-",
+    "_uri": enclosure?.url,
+    "title": item.title ?? "-",
+    "file_extension": extension,
+    "album": album.album,
+    "album_id": album.id,
+    "artist": item.author ?? album.artist ?? "-",
+    "is_podcast": true,
+    "_size": enclosure?.length ?? -1,
+    "_data": enclosure?.url ?? "",
+    "pubDate": item.pubDate,
+    "description": item.description,
+    "duration": enclosure?.length ?? -1,
+    "length": enclosure?.length,
+    "type": enclosure?.type,
+    "image": item.itunes?.image?.href,
+  });
+}
+
 albumSongs() async {
   bool sortByDate =
       (musicBox.get('albumSort') ?? [0, 2])[0] == 0 ? true : false;
@@ -133,29 +197,7 @@ albumSongs() async {
   final album = allAlbums[passedIndexAlbum!];
   var items = rssFeed.items;
   for (int i = 0; i < items.length; i++) {
-    RssItem item = items[i];
-    var enclosure = item.enclosure;
-    final extension = enclosure?.url?.split('.').last ?? ".mp3";
-    SongModel model = SongModel({
-      "_id": item.hashCode,
-      "_display_name": item.title ?? "-",
-      "_display_name_wo_ext": item.title ?? "-",
-      "_uri": enclosure?.url,
-      "title": item.title ?? "-",
-      "file_extension": extension,
-      "album": album.album,
-      "album_id": album.id,
-      "artist": item.author ?? album.artist ?? "-",
-      "is_podcast": true,
-      "_size": enclosure?.length ?? -1,
-      "_data": enclosure?.url ?? "",
-      "pubDate": item.pubDate,
-      "description": item.description,
-      "duration": enclosure?.length ?? -1,
-      "length": enclosure?.length,
-      "type": enclosure?.type,
-      "image": item.itunes?.image?.href,
-    });
+    SongModel model = songModelFromRssItem(items[i], album);
     inAlbumSongs.add(model);
   }
   inAlbumSongs.sort(

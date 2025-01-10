@@ -39,7 +39,7 @@ List<Tab> tabsData(double width, double? height) {
         ),
       ),
     ),
-    Tab(
+    /*Tab(
       child: Text(
         "ARTISTS",
         style: TextStyle(
@@ -60,7 +60,7 @@ List<Tab> tabsData(double width, double? height) {
           fontWeight: FontWeight.w600,
         ),
       ),
-    ),
+    ),*/
     Tab(
       child: Text(
         "PLAYLISTS",

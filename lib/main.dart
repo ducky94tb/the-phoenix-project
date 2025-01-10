@@ -31,7 +31,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await cacheImages();
   await dataInit();
-  await fetchSongs();
   audioHandler = await AudioService.init(
     builder: () => AudioPlayerTask(),
     config: const AudioServiceConfig(
@@ -58,7 +57,7 @@ void main() async {
           ),
           ChangeNotifierProvider<Seek>(create: (_) => Seek()),
         ],
-        child: permissionGiven ? const Begin() : const Privacy(),
+        child: /*permissionGiven ? */const Begin()/* : const Privacy()*/,
       ),
     ),
   );

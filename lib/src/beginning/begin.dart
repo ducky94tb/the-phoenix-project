@@ -56,7 +56,7 @@ class _BeginState extends State<Begin>
   void initState() {
     setScreenFrames();
     audioServiceStream();
-    tabController = TabController(vsync: this, length: 6, initialIndex: 1);
+    tabController = TabController(vsync: this, length: 4, initialIndex: 1);
     visualizerNotificationInit();
     WidgetsBinding.instance.addObserver(this);
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -266,8 +266,8 @@ class _BeginState extends State<Begin>
                             Mansion(),
                             Allofem(),
                             Albums(),
-                            Artists(),
-                            Genres(),
+                            // Artists(),
+                            // Genres(),
                             Playlist()
                           ],
                         ),

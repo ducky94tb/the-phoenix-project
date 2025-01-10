@@ -2,23 +2,17 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:audio_service/audio_service.dart';
-import 'package:dart_rss/domain/rss_feed.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'package:metadata_god/metadata_god.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:phoenix/src/beginning/begin.dart';
 import 'package:phoenix/src/beginning/utilities/apis/image_scrape.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
-import 'package:phoenix/src/beginning/utilities/page_backend/artists_back.dart';
-import 'package:phoenix/src/beginning/utilities/page_backend/genres_back.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/mansion_back.dart';
 
 import 'has_network.dart';
@@ -71,63 +65,9 @@ dataInit() async {
 // _hasPermission ? setState(() {}) : null;
 // }
 
-fetchSongs() async {
-  print("fetching data");
-  permissionGiven = true;
-
-  if ((androidSdkVersion >= 33 &&
-          await Permission.audio.request().isGranted &&
-          await Permission.videos.request().isGranted &&
-          await Permission.photos.request().isGranted) ||
-      (await Permission.storage.request().isGranted)) {
-    /*List songSortTypes = [
-      SongSortType.TITLE,
-      SongSortType.DATE_ADDED,
-      SongSortType.ALBUM,
-      SongSortType.ARTIST
-    ];
-    songList = await OnAudioQuery().querySongs(
-        sortType: songSortTypes[(musicBox.get('trackSort') ?? [0])[0]],
-        orderType: (musicBox.get('trackSort') ?? [0, 4])[1] == 4
-            ? OrderType.ASC_OR_SMALLER
-            : OrderType.DESC_OR_GREATER);
-    if (musicBox.get('customScan') ?? false) {
-      List<SongModel> updateList = [];
-      specificAlbums = [];
-      for (int i = 0; i < songList.length; i++) {
-        if (musicBox.get('customLocations') != null) {
-          for (int o = 0; o < musicBox.get('customLocations').length; o++) {
-            if (songList[i]
-                .data
-                .contains(musicBox.get('customLocations')[o].toString())) {
-              updateList.add(songList[i]);
-              specificAlbums.add(songList[i].album!.toUpperCase());
-              break;
-            }
-          }
-        }
-      }
-      specificAlbums.toSet().toList();
-      songList = updateList;
-    }
-    if (musicBox.get('clutterFree') ?? false) {
-      for (int i = 0; i < songList.length; i++) {
-        if (getDuration(songList[i])! < 30000) {
-          songList.remove(songList[i]);
-          i -= 1;
-        }
-      }
-    }
-    permissionGiven = true;*/
-  } else {
-    permissionGiven = false;
-  }
-}
+fetchSongs() async {}
 
 fetchAll() async {
-  /*if (ascend) {
-    await fetchSongs();
-  }*/
   await gettinAlbums();
   await gettinAlbumsArts();
   await gettinMansion();
@@ -156,11 +96,7 @@ songListToMediaItem() async {
         album: songList[i].album,
         artist: songList[i].artist,
         duration: Duration(milliseconds: getDuration(songList[i])!),
-        artUri: Uri.file(
-          (musicBox.get("artworksPointer") ?? {})[songList[i].id] == null
-              ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-              : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[songList[i].id]}.jpeg",
-        ),
+        artUri: Uri.parse(songList[i].getMap["image"]),
         title: songList[i].title,
         extras: {"id": songList[i].id});
     songListMediaItems.add(item);
