@@ -14,14 +14,19 @@ Uint8List? artOfOnline;
 playerontap({Uint8List? onlineArtwork}) async {
   if (!playerVisible) playerVisible = true;
 
-  if (rnAccessing == "online") {
+  /*if (rnAccessing == "online") {
     artwork = onlineArtwork;
     artOfOnline = artwork;
   } else {
     artwork = artworksData[(musicBox.get("artworksPointer") ??
             {})[nowMediaItem.extras!["id"]]] ??
         defaultNone!;
-  }
+  }*/
+  /**
+   * We are doing online application, always use onlineArtwork
+   * */
+  String imageUrl = nowMediaItem.artUri?.toString() ?? "";
+  artwork = await getImageBytes(imageUrl) ?? defaultNone!;
   // advanceAudioData = null;
   final sw = Stopwatch();
   if (initialart && listEquals(art, art2)) {

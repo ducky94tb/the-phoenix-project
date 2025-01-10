@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
@@ -29,14 +28,8 @@ class NowArt extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(kRounded),
                         image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: rnAccessing == "online" && artwork != null
-                              ? MemoryImage(artwork!)
-                              : MemoryImage(artworksData[
-                                      (musicBox.get("artworksPointer") ??
-                                          {})[nowMediaItem.extras?["id"]]] ??
-                                  defaultNone!),
-                        ),
+                            fit: BoxFit.cover,
+                            image: MemoryImage(artwork ?? defaultNone!)),
                       ),
                     ),
                   )

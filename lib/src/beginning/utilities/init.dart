@@ -1,22 +1,26 @@
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:audio_service/audio_service.dart';
+import 'package:dart_rss/domain/rss_feed.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:metadata_god/metadata_god.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:phoenix/src/beginning/begin.dart';
+import 'package:phoenix/src/beginning/utilities/apis/image_scrape.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/artists_back.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/genres_back.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/mansion_back.dart';
-import 'package:phoenix/src/beginning/utilities/apis/image_scrape.dart';
+
 import 'has_network.dart';
 
 cacheImages() async {
@@ -68,14 +72,15 @@ dataInit() async {
 // }
 
 fetchSongs() async {
-  print("fetching songs");
+  print("fetching data");
+  permissionGiven = true;
+
   if ((androidSdkVersion >= 33 &&
           await Permission.audio.request().isGranted &&
           await Permission.videos.request().isGranted &&
           await Permission.photos.request().isGranted) ||
       (await Permission.storage.request().isGranted)) {
-    print("1111");
-    List songSortTypes = [
+    /*List songSortTypes = [
       SongSortType.TITLE,
       SongSortType.DATE_ADDED,
       SongSortType.ALBUM,
@@ -113,25 +118,24 @@ fetchSongs() async {
         }
       }
     }
-    permissionGiven = true;
+    permissionGiven = true;*/
   } else {
     permissionGiven = false;
   }
 }
 
 fetchAll() async {
-  if (ascend) {
+  /*if (ascend) {
     await fetchSongs();
-  }
+  }*/
   await gettinAlbums();
-  await songListToMediaItem();
-  await gettinArtists();
-  await gettinMansion();
   await gettinAlbumsArts();
+  await gettinMansion();
+  await songListToMediaItem();
+  /*await gettinArtists();
   await gettinArtistsAlbums();
   await gettinGenres();
-  await smartArtistsArts();
-  await gettinSongArts();
+  await smartArtistsArts();*/
   ascend = true;
   debugPrint("ASCENDED");
   rootState.provideman();

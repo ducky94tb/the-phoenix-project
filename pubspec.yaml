@@ -68,6 +68,8 @@ dependencies:
   #     url: https://github.com/KyleKun/media_store_plus.git
   #     ref: main
 
+  #  OWN DATA Related
+  dart_rss: ^3.0.3
 
 
   # DATABASE Related
