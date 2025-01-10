@@ -184,7 +184,7 @@ class _BeginState extends State<Begin>
                                     Visibility(
                                       visible: stackedPhoenix,
                                       child: Text(
-                                        "  PHOENIX",
+                                        "  ATG AUDIO",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: orientedCar

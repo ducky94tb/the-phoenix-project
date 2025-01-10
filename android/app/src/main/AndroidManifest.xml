@@ -35,7 +35,7 @@
 
   <application 
       android:name="${applicationName}" 
-      android:label="The Phoenix Project" 
+      android:label="ATG Audio"
       android:icon="@mipmap/ic_launcher"
       android:requestLegacyExternalStorage="true">
 

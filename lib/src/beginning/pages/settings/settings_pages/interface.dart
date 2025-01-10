@@ -50,7 +50,7 @@ class _InterfaceState extends State<Interface> {
             centerTitle: true,
             backgroundColor: Colors.transparent,
             title: Text(
-              "Interface",
+              "Settings",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: deviceWidth! / 18,
