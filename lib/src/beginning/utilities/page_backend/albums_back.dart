@@ -4,6 +4,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
@@ -107,8 +108,9 @@ gettinAlbums() async {
           r = a.title.compareTo(b.title);
           break;
         case SongSortType.DATE_ADDED:
-          r = (a.getMap['pubDate'] as String)
-              .compareTo(b.getMap['pubDate'] as String);
+          var timeA = _parseUTC(b.getMap['pubDate'] as String);
+          var timeB = _parseUTC(a.getMap['pubDate'] as String);
+          r = timeA.compareTo(timeB);
           break;
         case SongSortType.ALBUM:
           r = a.album?.compareTo(b?.album ?? "") ?? 0;
@@ -120,6 +122,12 @@ gettinAlbums() async {
       return orderType == OrderType.ASC_OR_SMALLER ? r : -r;
     },
   );
+}
+
+DateTime _parseUTC(String utc) {
+  DateFormat format = DateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'");
+  DateTime date = format.parseUTC(utc);
+  return date;
 }
 
 gettinAlbumsArts() async {
