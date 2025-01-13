@@ -4,12 +4,38 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:phoenix/src/beginning/pages/settings/settings_pages/glass_effect.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
 import 'package:provider/provider.dart';
+import 'package:restart_app/restart_app.dart';
+
+Future<void> clearCache() async {
+  try {
+    final cacheDir = await getTemporaryDirectory();
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+    }
+  } catch (e) {
+    // Handle error
+    print('Error clearing cache: $e');
+  }
+}
+
+Future<void> clearAppData() async {
+  try {
+    final appDir = await getApplicationSupportDirectory();
+    if (appDir.existsSync()) {
+      appDir.deleteSync(recursive: true);
+    }
+  } catch (e) {
+    // Handle error
+    print('Error clearing app data: $e');
+  }
+}
 
 class Interface extends StatefulWidget {
   const Interface({super.key});
@@ -401,6 +427,35 @@ class _InterfaceState extends State<Interface> {
                               }).toList(),
                             )),
                       ),
+                      Material(
+                        color: Colors.transparent,
+                        child: ListTile(
+                          title: const Text(
+                            "Clear app data",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          subtitle: const Text(
+                            "Clear app's cache and data, it will be like you newly install the app",
+                            style: TextStyle(
+                              color: Colors.white38,
+                            ),
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: Colors.white,
+                          ),
+                          onTap: () {
+                            showConfirmationDialog(context, () async {
+                              musicBox.put('countryCode', null);
+                              await clearCache();
+                              await clearAppData();
+                              Restart.restartApp();
+                            });
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -411,4 +466,32 @@ class _InterfaceState extends State<Interface> {
       },
     );
   }
+}
+
+Future<bool?> showConfirmationDialog(BuildContext context, Function onConfirm) {
+  return showDialog<bool>(
+    context: context,
+    barrierDismissible: false, // User must tap a button to dismiss
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Confirm'),
+        content: const Text('Are you sure you want to proceed?'),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop(false); // Return false
+            },
+          ),
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              onConfirm();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

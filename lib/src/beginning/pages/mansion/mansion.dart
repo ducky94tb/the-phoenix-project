@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums.dart';
@@ -327,22 +328,23 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                             child: Container(
                                               height: deviceWidth! / 3,
                                               width: deviceWidth! / 3,
-                                              decoration: BoxDecoration(
+                                              child: ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        kRounded),
-                                                image: DecorationImage(
+                                                    BorderRadius.circular(15.0),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: recentPlayed[index]
+                                                      .getMap["image"],
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
                                                   fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      recentPlayed[index]
-                                                          .getMap["image"]),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Padding(
                                               padding: EdgeInsets.only(
-                                                  top: deviceWidth! / 40)),
+                                                  top: deviceWidth! / 100)),
                                           Text(
                                             recentPlayed[index].title,
                                             maxLines: 2,
@@ -414,7 +416,6 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                             Material(
                               color: Colors.transparent,
                               child: SizedBox(
-                                height: deviceWidth! / 2,
                                 width: deviceWidth! / 1.6,
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(kRounded),
@@ -457,24 +458,26 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                         borderRadius:
                                             BorderRadius.circular(kRounded),
                                         elevation: deviceWidth! / 140,
-                                        child: Container(
+                                        child: SizedBox(
                                           height: deviceWidth! / 3,
                                           width: deviceWidth! / 2,
-                                          decoration: BoxDecoration(
+                                          child: ClipRRect(
                                             borderRadius:
-                                                BorderRadius.circular(kRounded),
-                                            image: DecorationImage(
+                                                BorderRadius.circular(15.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl: alwaysPlayed[index]
+                                                  .getMap["image"],
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
                                               fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  alwaysPlayed[index]
-                                                      .getMap["image"]),
                                             ),
                                           ),
                                         ),
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(
-                                              top: deviceWidth! / 40)),
+                                              top: deviceWidth! / 100)),
                                       SizedBox(
                                         width: deviceWidth! / 2,
                                         child: Text(
@@ -586,7 +589,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                       child: Column(children: [
                                         Padding(
                                             padding: EdgeInsets.only(
-                                                top: deviceWidth! / 30)),
+                                                top: deviceWidth! / 50)),
                                         PhysicalModel(
                                           elevation: deviceWidth! / 140,
                                           borderRadius:
@@ -595,26 +598,26 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                                           child: Container(
                                             height: deviceWidth! / 3,
                                             width: deviceWidth! / 2,
-                                            decoration: BoxDecoration(
+                                            child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(
-                                                      kRounded),
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: MemoryImage(artworksData[
-                                                        (musicBox.get(
-                                                                "artworksPointer") ??
-                                                            {})[everPlayedLimited[
-                                                                index]
-                                                            .id]] ??
-                                                    defaultNone!),
+                                                  BorderRadius.circular(15.0),
+                                              // Adjust the radius as needed
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    everPlayedLimited[index]
+                                                        .getMap["image"],
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                                fit: BoxFit
+                                                    .cover, // Ensures the image covers the container
                                               ),
                                             ),
                                           ),
                                         ),
                                         Padding(
                                             padding: EdgeInsets.only(
-                                                top: deviceWidth! / 40)),
+                                                top: deviceWidth! / 100)),
                                         SizedBox(
                                           width: deviceWidth! / 2,
                                           child: Text(

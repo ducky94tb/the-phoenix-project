@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:device_info/device_info.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,6 +17,8 @@ import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/mansion_back.dart';
 
 import 'has_network.dart';
+
+final remoteConfig = FirebaseRemoteConfig.instance;
 
 cacheImages() async {
   applicationFileDirectory = await getApplicationDocumentsDirectory();
@@ -37,10 +40,21 @@ cacheImages() async {
 
 dataInit() async {
   await Hive.initFlutter();
+
+  await remoteConfig.setConfigSettings(
+    RemoteConfigSettings(
+      fetchTimeout: const Duration(minutes: 1),
+      minimumFetchInterval: const Duration(seconds: 1),
+    ),
+  );
+  remoteConfig.onConfigUpdated.listen((event) async {
+    await remoteConfig.fetchAndActivate();
+  });
+  await remoteConfig.fetchAndActivate();
+
   musicBox = await Hive.openBox('musicDataBox');
   var info = await DeviceInfoPlugin().androidInfo;
   androidSdkVersion = info.version.sdkInt;
-  print(androidSdkVersion);
   if (androidSdkVersion >= 30) {
     MetadataGod.initialize();
   }

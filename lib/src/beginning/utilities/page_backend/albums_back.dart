@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:dart_rss/dart_rss.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -80,6 +82,16 @@ gettinAlbums() async {
   final orderType = (musicBox.get('trackSort') ?? [0, 4])[1] == 4
       ? OrderType.ASC_OR_SMALLER
       : OrderType.DESC_OR_GREATER;
+  try {
+    String countryCode = musicBox.get("countryCode");
+    String jsonString = FirebaseRemoteConfig.instance.getString(countryCode);
+    rssUrls = List<String>.from(json.decode(jsonString));
+    // Use the stringList as needed
+  } catch (e) {
+    // Handle errors appropriately
+    print('Failed to fetch or parse Remote Config: $e');
+  }
+
   for (int i = 0; i < rssUrls.length; i++) {
     var rssFeed = await loadFeed(rssUrls[i]);
     if (rssFeed != null) {
@@ -173,6 +185,7 @@ gettinAlbumsArts() async {
 
 songModelFromRssItem(RssItem item, AlbumModel album) {
   var enclosure = item.enclosure;
+  var itunes = item.itunes;
   final extension = enclosure?.url?.split('.').last ?? ".mp3";
   return SongModel({
     "_id": item.hashCode,
@@ -189,7 +202,7 @@ songModelFromRssItem(RssItem item, AlbumModel album) {
     "_data": enclosure?.url ?? "",
     "pubDate": item.pubDate,
     "description": item.description,
-    "duration": enclosure?.length ?? -1,
+    "duration": itunes?.duration?.inMilliseconds ?? 0,
     "length": enclosure?.length,
     "type": enclosure?.type,
     "image": item.itunes?.image?.href,

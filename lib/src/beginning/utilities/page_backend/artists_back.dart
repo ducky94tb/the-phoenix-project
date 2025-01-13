@@ -87,11 +87,7 @@ artistsAllSongs(String who) async {
         album: inArtistsSongs[i].album,
         artist: inArtistsSongs[i].artist,
         duration: Duration(milliseconds: getDuration(inArtistsSongs[i])!),
-        artUri: Uri.file(
-          (musicBox.get("artworksPointer") ?? {})[inArtistsSongs[i].id] == null
-              ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-              : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[inArtistsSongs[i].id]}.jpeg",
-        ),
+        artUri: Uri.parse(inArtistsSongs[i].getMap["image"]),
         title: inArtistsSongs[i].title,
         extras: {"id": inArtistsSongs[i].id});
     artistMediaItems.add(item);

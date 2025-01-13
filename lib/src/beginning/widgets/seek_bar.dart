@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:phoenix/src/beginning/utilities/download/extensions.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:provider/provider.dart';
 
@@ -269,32 +270,10 @@ class _CyberSkySeekBarState extends State<CyberSkySeekBar> {
                       children: [
                         Text(
                           !usingSeek
-                              ? currentPosition
+                              ? currentPosition.inSeconds
                                   .toString()
-                                  .replaceRange(0, 2, "")
-                                  .replaceRange(
-                                      currentPosition
-                                          .toString()
-                                          .replaceRange(0, 2, "")
-                                          .indexOf("."),
-                                      currentPosition
-                                          .toString()
-                                          .replaceRange(0, 2, "")
-                                          .length,
-                                      "")
-                              : (Duration(seconds: seekValue))
-                                  .toString()
-                                  .replaceRange(0, 2, "")
-                                  .replaceRange(
-                                      currentPosition
-                                          .toString()
-                                          .replaceRange(0, 2, "")
-                                          .indexOf("."),
-                                      currentPosition
-                                          .toString()
-                                          .replaceRange(0, 2, "")
-                                          .length,
-                                      ""),
+                                  .formatToHHMMSS()
+                              : seekValue.toString().formatToHHMMSS(),
                           style: TextStyle(
                               fontSize: deviceWidth! / 35,
                               shadows: const [
@@ -311,26 +290,10 @@ class _CyberSkySeekBarState extends State<CyberSkySeekBar> {
                                   : Colors.white),
                         ),
                         Text(
-                          nowMediaItem.duration == null
-                              ? Duration(
-                                      milliseconds:
-                                          nowMediaItem.duration!.inMilliseconds)
+                          nowMediaItem.duration?.inSeconds
                                   .toString()
-                              : Duration(
-                                      milliseconds:
-                                          nowMediaItem.duration!.inMilliseconds)
-                                  .toString()
-                                  .replaceRange(0, 2, "")
-                                  .replaceRange(
-                                    5,
-                                    Duration(
-                                            milliseconds: nowMediaItem
-                                                .duration!.inMilliseconds)
-                                        .toString()
-                                        .replaceRange(0, 2, "")
-                                        .length,
-                                    "",
-                                  ),
+                                  .formatToHHMMSS() ??
+                              "",
                           style: TextStyle(
                               fontSize: deviceWidth! / 35,
                               shadows: const [
@@ -546,7 +509,7 @@ class _MiniSeekbarState extends State<MiniSeekbar> {
 
   streamOfPosition() {
     posStream = AudioService.position.listen(
-          (Duration position) {
+      (Duration position) {
         currentPosition = position;
         if (globalTiming != null &&
             usingSeek == false &&
@@ -570,32 +533,8 @@ class _MiniSeekbarState extends State<MiniSeekbar> {
                 left: orientedCar ? deviceHeight! / 2 / 25 : deviceWidth! / 30),
             child: Text(
               !usingSeek
-                  ? currentPosition
-                      .toString()
-                      .replaceRange(0, 2, "")
-                      .replaceRange(
-                          currentPosition
-                              .toString()
-                              .replaceRange(0, 2, "")
-                              .indexOf("."),
-                          currentPosition
-                              .toString()
-                              .replaceRange(0, 2, "")
-                              .length,
-                          "")
-                  : (Duration(seconds: seekValue))
-                      .toString()
-                      .replaceRange(0, 2, "")
-                      .replaceRange(
-                          currentPosition
-                              .toString()
-                              .replaceRange(0, 2, "")
-                              .indexOf("."),
-                          currentPosition
-                              .toString()
-                              .replaceRange(0, 2, "")
-                              .length,
-                          ""),
+                  ? currentPosition.inSeconds.toString().formatToHHMMSS()
+                  : seekValue.toString().formatToHHMMSS(),
               style: TextStyle(
                   fontSize: deviceWidth! / 35,
                   shadows: const [
@@ -614,13 +553,13 @@ class _MiniSeekbarState extends State<MiniSeekbar> {
           ),
           SizedBox(
             height: 10,
-            width: orientedCar ? deviceHeight! / 1.5 : deviceWidth! / 1.5,
+            width: orientedCar ? deviceHeight! / 1.6 : deviceWidth! / 1.6,
             child: SliderTheme(
               data: SliderThemeData(
                 trackShape: CustomTrackShape(),
                 trackHeight: 2,
-                thumbShape: const RoundSliderThumbShape(
-                    enabledThumbRadius: 1.4),
+                thumbShape:
+                    const RoundSliderThumbShape(enabledThumbRadius: 1.4),
                 thumbColor: Colors.transparent,
                 inactiveTrackColor: musicBox.get("dynamicArtDB") ?? true
                     ? nowContrast.withOpacity(0.1)
@@ -649,24 +588,7 @@ class _MiniSeekbarState extends State<MiniSeekbar> {
             padding: EdgeInsets.only(
                 left: orientedCar ? deviceHeight! / 2 / 25 : deviceWidth! / 30),
             child: Text(
-              nowMediaItem.duration == null
-                  ? Duration(
-                          milliseconds: nowMediaItem.duration!.inMilliseconds)
-                      .toString()
-                  : Duration(
-                          milliseconds: nowMediaItem.duration!.inMilliseconds)
-                      .toString()
-                      .replaceRange(0, 2, "")
-                      .replaceRange(
-                        5,
-                        Duration(
-                                milliseconds:
-                                    nowMediaItem.duration!.inMilliseconds)
-                            .toString()
-                            .replaceRange(0, 2, "")
-                            .length,
-                        "",
-                      ),
+              nowMediaItem.duration!.inSeconds.toString().formatToHHMMSS(),
               style: TextStyle(
                   fontSize: deviceWidth! / 35,
                   shadows: const [

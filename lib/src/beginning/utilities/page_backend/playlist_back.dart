@@ -26,12 +26,7 @@ fetchPlaylistSongs(String? playlistName) {
                     album: songList[o].album,
                     artist: songList[o].artist,
                     duration: Duration(milliseconds: getDuration(songList[o])!),
-                    artUri: Uri.file(
-                      (musicBox.get("artworksPointer") ?? {})[songList[o].id] ==
-                              null
-                          ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-                          : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[songList[o].id]}.jpeg",
-                    ),
+                    artUri: Uri.parse(songList[o].getMap["image"]),
                     title: songList[o].title,
                     extras: {"id": songList[o].id});
                 playlistMediaItems.add(item);
@@ -47,11 +42,7 @@ fetchPlaylistSongs(String? playlistName) {
               album: songList[o].album,
               artist: songList[o].artist,
               duration: Duration(milliseconds: getDuration(songList[o])!),
-              artUri: Uri.file(
-                (musicBox.get("artworksPointer") ?? {})[songList[o].id] == null
-                    ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-                    : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[songList[o].id]}.jpeg",
-              ),
+              artUri: Uri.parse(songList[o].getMap["image"]),
               title: songList[o].title,
               extras: {"id": songList[o].id});
           playlistMediaItems.add(item);

@@ -1,15 +1,16 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:phoenix/src/beginning/utilities/global_variables.dart';
-import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
-import '../../utilities/page_backend/playlist_back.dart';
-import 'package:phoenix/src/beginning/pages/playlist/playlist.dart';
-import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
-import 'package:phoenix/src/beginning/utilities/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:phoenix/src/beginning/pages/playlist/playlist.dart';
+import 'package:phoenix/src/beginning/utilities/constants.dart';
+import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
+import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
 import 'package:provider/provider.dart';
+
+import '../../utilities/page_backend/playlist_back.dart';
 
 List<bool> playListCheck = [];
 List playListSongsId = [];
@@ -17,7 +18,9 @@ List playListSongsId = [];
 class AddSongs extends StatefulWidget {
   final bool modify;
   final String? playlistName;
+
   const AddSongs({required this.modify, required this.playlistName, super.key});
+
   @override
   State<AddSongs> createState() => _AddSongsState();
 }
@@ -290,28 +293,19 @@ class _AddSongsState extends State<AddSongs> {
                                     setState(() {});
                                   },
                                 ),
-                                leading: Card(
-                                  elevation: 3,
-                                  color: Colors.transparent,
-                                  child: ConstrainedBox(
-                                    constraints:
-                                        musicBox.get("squareArt") ?? true
-                                            ? kSqrConstraint
-                                            : kRectConstraint,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(3),
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: MemoryImage(artworksData[
-                                                  (musicBox.get(
-                                                          "artworksPointer") ??
-                                                      {})[songList[
-                                                          index]
-                                                      .id]] ??
-                                              defaultNone!),
-                                        ),
+                                leading: AspectRatio(
+                                  aspectRatio: musicBox.get("squareArt") ?? true
+                                      ? 1 / 1
+                                      : 4 / 3,
+                                  child: Card(
+                                    elevation: 3,
+                                    color: Colors.transparent,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(6),
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            songList[index].getMap["image"],
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),

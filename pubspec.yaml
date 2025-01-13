@@ -99,6 +99,7 @@ dependencies:
   fluttertoast: ^8.2.8
   googleapis_auth: ^1.6.0
   firebase_remote_config: ^5.1.0
+  restart_app: ^1.2.1
 
 dev_dependencies:
   flutter_test:

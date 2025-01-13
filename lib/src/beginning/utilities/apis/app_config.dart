@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
 
 class AppConfig {
   AppConfig._();
@@ -16,8 +14,6 @@ class AppConfig {
   Future<void> init(BuildContext context) async {
     _config = await loadJsonData();
   }
-
-  void activateRemoteConfig(RemoteConfigUpdate? event) {}
 
   Future<Map<String, dynamic>> loadJsonData() async {
     // Load the JSON string from the assets

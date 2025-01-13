@@ -45,11 +45,7 @@ putinGenreInMediaItem() {
         album: genreSongs![i].album,
         artist: genreSongs![i].artist,
         duration: Duration(milliseconds: getDuration(genreSongs![i])!),
-        artUri: Uri.file(
-          (musicBox.get("artworksPointer") ?? {})[genreSongs![i].id] == null
-              ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-              : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[genreSongs![i].id]}.jpeg",
-        ),
+        artUri: Uri.parse(genreSongs![i].getMap["image"]),
         title: genreSongs![i].title,
         extras: {"id": genreSongs![i].id});
     genreMediaItems.add(item);

@@ -1,9 +1,11 @@
 import 'dart:collection';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
+
 import '../../pages/mansion/mansion.dart';
 
 List mansionArtists = [];
@@ -118,13 +120,11 @@ recentlyPlayed(Map raw) async {
             album: songList[o].album,
             artist: songList[o].artist,
             duration: Duration(milliseconds: getDuration(songList[o])!),
-            artUri: Uri.file(
-              (musicBox.get("artworksPointer") ?? {})[songList[o].id] == null
-                  ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-                  : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[songList[o].id]}.jpeg",
-            ),
             title: songList[o].title,
-            extras: {"id": songList[o].id});
+            artUri: Uri.parse(songList[0].getMap["image"]),
+            extras: {
+              "id": songList[o].id,
+            });
         recentPlayedMediaItems.add(item);
       }
     }
@@ -156,15 +156,11 @@ neverPlayed(Map raw) async {
             artist: everPlayedLimited[i].artist,
             duration:
                 Duration(milliseconds: getDuration(everPlayedLimited[i])!),
-            artUri: Uri.file(
-              (musicBox.get("artworksPointer") ??
-                          {})[everPlayedLimited[i].id] ==
-                      null
-                  ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-                  : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[everPlayedLimited[i].id]}.jpeg",
-            ),
             title: everPlayedLimited[i].title,
-            extras: {"id": everPlayedLimited[i].id});
+            artUri: Uri.parse(everPlayedLimited[i].getMap["image"]),
+            extras: {
+              "id": everPlayedLimited[i].id,
+            });
         everPlayedLimitedMediaItems.add(item);
       }
     } else {}
@@ -183,13 +179,11 @@ topPlayed(Map raw) async {
             album: songList[q].album,
             artist: songList[q].artist,
             duration: Duration(milliseconds: getDuration(songList[q])!),
-            artUri: Uri.file(
-              (musicBox.get("artworksPointer") ?? {})[songList[q].id] == null
-                  ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-                  : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[songList[q].id]}.jpeg",
-            ),
             title: songList[q].title,
-            extras: {"id": songList[q].id});
+            artUri: Uri.parse(songList[q].getMap["image"]),
+            extras: {
+              "id": songList[q].id,
+            });
         alwaysPlayedMediaItems.add(item);
       }
     }
@@ -203,12 +197,8 @@ updateRecentlyPlayed(song) async {
         id: song.data,
         album: song.album,
         artist: song.artist,
+        artUri: Uri.parse(song.getMap["image"]),
         duration: Duration(milliseconds: getDuration(song)!),
-        artUri: Uri.file(
-          (musicBox.get("artworksPointer") ?? {})[song.id] == null
-              ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-              : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[song.id]}.jpeg",
-        ),
         title: song.title,
         extras: {"id": song.id});
     recentPlayedMediaItems.add(item);
@@ -220,12 +210,8 @@ updateRecentlyPlayed(song) async {
           album: song.album,
           artist: song.artist,
           duration: Duration(milliseconds: getDuration(song)!),
-          artUri: Uri.file(
-            (musicBox.get("artworksPointer") ?? {})[song.id] == null
-                ? "${applicationFileDirectory.path}/artworks/null.jpeg"
-                : "${applicationFileDirectory.path}/artworks/songarts/${(musicBox.get("artworksPointer") ?? {})[song.id]}.jpeg",
-          ),
           title: song.title,
+          artUri: Uri.parse(song.getMap["image"]),
           extras: {"id": song.id});
       recentPlayedMediaItems.add(item);
     }

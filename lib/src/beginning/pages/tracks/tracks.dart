@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/begin.dart';
@@ -135,22 +136,20 @@ class _AllofemState extends State<Allofem>
                     ),
                   ),
                 ),
-                leading: Card(
-                  elevation: 3,
-                  color: Colors.transparent,
-                  child: ConstrainedBox(
-                    constraints: musicBox.get("squareArt") ?? true
-                        ? kSqrConstraint
-                        : kRectConstraint,
-                    child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image:
-                              NetworkImage(songList[index - 1].getMap["image"]),
-                        ),
+                leading: AspectRatio(
+                  aspectRatio:
+                      musicBox.get("squareArt") ?? true ? 1 / 1 : 4 / 3,
+                  child: Card(
+                    elevation: 3,
+                    color: Colors.transparent,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6.0),
+                      child: CachedNetworkImage(
+                        height: 48,
+                        imageUrl: songList[index - 1].getMap["image"],
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
