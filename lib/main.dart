@@ -16,6 +16,7 @@
 import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phoenix/src/beginning/begin.dart';
@@ -27,9 +28,14 @@ import 'package:phoenix/src/beginning/utilities/init.dart';
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await cacheImages();
   await dataInit();
   audioHandler = await AudioService.init(

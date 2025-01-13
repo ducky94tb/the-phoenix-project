@@ -212,8 +212,9 @@ albumSongs() async {
     (a, b) {
       int r;
       if (sortByDate) {
-        r = (a.getMap['pubDate'] as String)
-            .compareTo(b.getMap['pubDate'] as String);
+        var timeA = _parseUTC(b.getMap['pubDate'] as String);
+        var timeB = _parseUTC(a.getMap['pubDate'] as String);
+        r = timeA.compareTo(timeB);
       } else {
         r = a.title.compareTo(b.title);
       }
