@@ -19,6 +19,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:phoenix/src/beginning/begin.dart';
 import 'package:phoenix/src/beginning/pages/test/select_screen_page.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/background.dart';
@@ -29,6 +30,7 @@ import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
+import 'i18n/localization_service.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
@@ -54,8 +56,11 @@ void main() async {
     ),
   );
   runApp(
-    MaterialApp(
+    GetMaterialApp(
       theme: themeOfApp,
+      locale: LocalizationService.locale,
+      fallbackLocale: LocalizationService.fallbackLocale,
+      translations: LocalizationService(),
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider<Leprovider>(create: (_) => Leprovider()),

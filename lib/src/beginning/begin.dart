@@ -8,11 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_remixicon/flutter_remixicon.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums.dart';
-import 'package:phoenix/src/beginning/pages/artists/artists.dart';
-import 'package:phoenix/src/beginning/pages/genres/genres.dart';
 import 'package:phoenix/src/beginning/pages/mansion/mansion.dart';
 import 'package:phoenix/src/beginning/pages/now_playing/mini_playing.dart';
 import 'package:phoenix/src/beginning/pages/now_playing/now_playing_sky.dart';
@@ -561,7 +560,7 @@ class _BeginState extends State<Begin>
             break;
         }
       },
-      messageText: const Text("Go back once more to exit",
+      messageText: Text("go_back_one_more".tr,
           style: TextStyle(fontFamily: "Futura", color: Colors.white)),
       icon: const Icon(
         Icons.exit_to_app_rounded,

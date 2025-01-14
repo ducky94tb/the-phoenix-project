@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums_inside.dart';
@@ -256,7 +257,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                             height: deviceWidth! / 9,
                             child: Center(
                               child: Text(
-                                "Recently Played",
+                                "recently_played".tr,
                                 style: TextStyle(
                                     fontSize: deviceWidth! / 15,
                                     fontWeight: FontWeight.w600,
@@ -392,7 +393,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                       height: deviceWidth! / 9,
                       child: Center(
                         child: Text(
-                          "Your Favourite",
+                          "your_favourite".tr,
                           style: TextStyle(
                               fontSize: deviceWidth! / 15,
                               fontWeight: FontWeight.w600,
@@ -528,7 +529,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                           height: deviceWidth! / 9,
                           child: Center(
                             child: Text(
-                              "Try Something New",
+                              "try_something_new".tr,
                               style: TextStyle(
                                   fontSize: deviceWidth! / 15,
                                   fontWeight: FontWeight.w600,
@@ -666,7 +667,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                       height: deviceWidth! / 9,
                       child: Center(
                         child: Text(
-                          "Favourite Artists",
+                          "favourite_artists".tr,
                           style: TextStyle(
                               fontSize: deviceWidth! / 15,
                               fontWeight: FontWeight.w600,
@@ -838,7 +839,7 @@ class _MansionState extends State<Mansion> with AutomaticKeepAliveClientMixin {
                       height: deviceWidth! / 9,
                       child: Center(
                         child: Text(
-                          "Favourite Albums",
+                          "favourite_albums".tr,
                           style: TextStyle(
                             fontSize: deviceWidth! / 15,
                             fontWeight: FontWeight.w600,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
@@ -130,7 +131,7 @@ class _PhoenixVisualizerState extends State<PhoenixVisualizer> {
                                             BorderRadius.circular(kRounded),
                                       ),
                                       child: Center(
-                                        child: Text("START",
+                                        child: Text("start".tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -438,7 +439,7 @@ class _PhoenixVisualizerGlobalState extends State<PhoenixVisualizerGlobal> {
                                             BorderRadius.circular(kRounded),
                                       ),
                                       child: Center(
-                                        child: Text("START",
+                                        child: Text('start'.tr,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: Colors.black,
@@ -454,7 +455,7 @@ class _PhoenixVisualizerGlobalState extends State<PhoenixVisualizerGlobal> {
                                       left: deviceWidth! / 10,
                                       right: deviceWidth! / 10),
                                   child: Text(
-                                    "NOTE: This will run in the background until stopped, causing battery drain",
+                                    "note".tr,
                                     textAlign: TextAlign.center,
                                     maxLines: 2,
                                     style: TextStyle(

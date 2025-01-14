@@ -145,27 +145,27 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                         child: InkWell(
                           enableFeedback: false,
                           onTap: () {
-                            if (!onLyrics) {
+                            /*if (!onLyrics) {
                               HapticFeedback.lightImpact();
                               setState(() {
                                 onLyrics = !onLyrics;
                               });
                               if (onLyrics) lyricsFoo();
-                            }
+                            }*/
                             // print(lyricsDat);
                             // print("What the cuk");
                             // print("YOOOOOOOOOOOOO${lyricsDat!.isValidLrc}");
                           },
                           onDoubleTap: () {
                             HapticFeedback.lightImpact();
-                            setState(() {
+                            /*setState(() {
                               onLyrics = !onLyrics;
                             });
-                            if (onLyrics) lyricsFoo();
+                            if (onLyrics) lyricsFoo();*/
                           },
                           onLongPress: () {
                             HapticFeedback.lightImpact();
-                            Navigator.push(
+                            /*Navigator.push(
                               context,
                               PageTransition(
                                 type: PageTransitionType.size,
@@ -179,7 +179,7 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                   widthOfDevice: deviceWidth,
                                 ),
                               ),
-                            );
+                            );*/
                           },
                           child: Center(
                             child: Padding(
@@ -645,14 +645,14 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                               ),
                               onTap: () {
                                 HapticFeedback.lightImpact();
-                                setState(() {
+                                /*setState(() {
                                   onLyrics = !onLyrics;
                                 });
-                                if (onLyrics) lyricsFoo();
+                                if (onLyrics) lyricsFoo();*/
                               },
                               onLongPress: () {
                                 HapticFeedback.lightImpact();
-                                Navigator.push(
+                                /*Navigator.push(
                                   context,
                                   PageTransition(
                                     type: PageTransitionType.size,
@@ -666,7 +666,7 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                       widthOfDevice: deviceWidth,
                                     ),
                                   ),
-                                );
+                                );*/
                               },
                             ),
                           ),
@@ -929,10 +929,10 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                             borderRadius:
                                                 BorderRadius.circular(kRounded),
                                             onTap: () {
-                                              setState(() {
+                                              /*setState(() {
                                                 onLyrics = !onLyrics;
                                               });
-                                              if (onLyrics) lyricsFoo();
+                                              if (onLyrics) lyricsFoo();*/
                                             },
                                             child: Padding(
                                               padding:
@@ -1175,11 +1175,11 @@ class _NowPlayingSkyState extends State<NowPlayingSky>
                                 ),
                               ),
                               onTap: () {
-                                HapticFeedback.lightImpact();
+                                /*HapticFeedback.lightImpact();
                                 setState(() {
                                   onLyrics = !onLyrics;
                                 });
-                                if (onLyrics) lyricsFoo();
+                                if (onLyrics) lyricsFoo();*/
                               },
                               onLongPress: () {
                                 HapticFeedback.lightImpact();

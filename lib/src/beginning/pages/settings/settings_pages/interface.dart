@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:phoenix/i18n/localization_service.dart';
 import 'package:phoenix/src/beginning/pages/settings/settings_pages/glass_effect.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
@@ -76,7 +78,7 @@ class _InterfaceState extends State<Interface> {
             centerTitle: true,
             backgroundColor: Colors.transparent,
             title: Text(
-              "Settings",
+              'settings'.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: deviceWidth! / 18,
@@ -103,15 +105,15 @@ class _InterfaceState extends State<Interface> {
                       Material(
                         color: Colors.transparent,
                         child: ListTile(
-                          title: const Text(
-                            "Glass Effect",
-                            style: TextStyle(
+                          title: Text(
+                            "glass_effect".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          subtitle: const Text(
-                            "Adjust blur and color of glass theme.",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "glass_effect_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
@@ -136,15 +138,15 @@ class _InterfaceState extends State<Interface> {
                       Material(
                         color: Colors.transparent,
                         child: ListTile(
-                          title: const Text(
-                            "Default Artwork",
-                            style: TextStyle(
+                          title: Text(
+                            "default_artwork".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          subtitle: const Text(
-                            "Set custom image as default artwork.",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "default_artwork_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
@@ -182,9 +184,8 @@ class _InterfaceState extends State<Interface> {
                                 .writeAsBytes(defaultNone!,
                                     mode: FileMode.write);
                             Flushbar(
-                              messageText: const Text(
-                                  "Default artwork has been reset",
-                                  style: TextStyle(
+                              messageText: Text("fluid_flush_message".tr,
+                                  style: const TextStyle(
                                       fontFamily: "Futura",
                                       color: Colors.white)),
                               icon: const Icon(
@@ -227,18 +228,58 @@ class _InterfaceState extends State<Interface> {
                       ),
                       Material(
                         color: Colors.transparent,
+                        child: ListTile(
+                            subtitle: Text(
+                              'language_summary'.tr,
+                              style: const TextStyle(
+                                color: Colors.white38,
+                              ),
+                            ),
+                            title: Text(
+                              'language'.tr,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            trailing: DropdownButton<String>(
+                              value: musicBox.get("locale") ?? "en",
+                              icon: const Icon(Icons.arrow_drop_down_rounded,
+                                  color: Colors.white70),
+                              elevation: 25,
+                              enableFeedback: true,
+                              borderRadius: BorderRadius.circular(kRounded / 2),
+                              dropdownColor: kMaterialBlack.withOpacity(0.8),
+                              underline: Container(
+                                height: 2,
+                                color: kCorrect,
+                              ),
+                              style: const TextStyle(color: Colors.white),
+                              onChanged: (String? newValue) async {
+                                if (newValue != null) {
+                                  LocalizationService.changeLocale(newValue);
+                                }
+                                setState(() {});
+                              },
+                              items: LocalizationService.langs.entries
+                                  .map((e) => DropdownMenuItem<String>(
+                                      value: e.key, child: Text(e.value)))
+                                  .toList(),
+                            )),
+                      ),
+                      Material(
+                        color: Colors.transparent,
                         child: CheckboxListTile(
                           activeColor: kCorrect,
                           checkColor: kMaterialBlack,
-                          subtitle: const Text(
-                            "A fluid bouncing animation on scrolling",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "fluid_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
-                          title: const Text(
-                            "Fluid",
-                            style: TextStyle(
+                          title: Text(
+                            "fluid".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -256,15 +297,15 @@ class _InterfaceState extends State<Interface> {
                         child: CheckboxListTile(
                           activeColor: kCorrect,
                           checkColor: kMaterialBlack,
-                          subtitle: const Text(
-                            "Use albumart as background",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "dynamic_background_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
-                          title: const Text(
-                            "Dynamic Background",
-                            style: TextStyle(
+                          title: Text(
+                            "dynamic_background".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -282,15 +323,15 @@ class _InterfaceState extends State<Interface> {
                         child: CheckboxListTile(
                           activeColor: kCorrect,
                           checkColor: kMaterialBlack,
-                          subtitle: const Text(
-                            "Square shaped artwork in lists",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "square_art_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
-                          title: const Text(
-                            "Square Art",
-                            style: TextStyle(
+                          title: Text(
+                            "square_art".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -308,15 +349,15 @@ class _InterfaceState extends State<Interface> {
                         child: CheckboxListTile(
                           activeColor: kCorrect,
                           checkColor: kMaterialBlack,
-                          subtitle: const Text(
-                            "Position icons for driver's ease",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "left_steering_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
-                          title: const Text(
-                            "Left Steering",
-                            style: TextStyle(
+                          title: Text(
+                            "left_steering".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -334,15 +375,15 @@ class _InterfaceState extends State<Interface> {
                         child: CheckboxListTile(
                           activeColor: kCorrect,
                           checkColor: kMaterialBlack,
-                          subtitle: const Text(
-                            "Show additional song data in now playing.",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "audiophile_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
-                          title: const Text(
-                            "Audiophile Data",
-                            style: TextStyle(
+                          title: Text(
+                            "audiophile".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -360,15 +401,15 @@ class _InterfaceState extends State<Interface> {
                         child: CheckboxListTile(
                           activeColor: kCorrect,
                           checkColor: kMaterialBlack,
-                          subtitle: const Text(
-                            "Use regular mini-player design.",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "classix_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
-                          title: const Text(
-                            "Classix Mini-Player",
-                            style: TextStyle(
+                          title: Text(
+                            "classix".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -384,21 +425,21 @@ class _InterfaceState extends State<Interface> {
                       Material(
                         color: Colors.transparent,
                         child: ListTile(
-                            subtitle: const Text(
-                              "Show buttons in mini-player.",
-                              style: TextStyle(
+                            subtitle: Text(
+                              "mini_player_summary".tr,
+                              style: const TextStyle(
                                 color: Colors.white38,
                               ),
                             ),
-                            title: const Text(
-                              "Mini-Player Progress",
-                              style: TextStyle(
+                            title: Text(
+                              "mini_player".tr,
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                             trailing: DropdownButton<String>(
                               value: musicBox.get("miniPlayerPosition") ??
-                                  "Bottom",
+                                  "bottom".tr,
                               icon: const Icon(Icons.arrow_drop_down_rounded,
                                   color: Colors.white70),
                               elevation: 25,
@@ -416,9 +457,9 @@ class _InterfaceState extends State<Interface> {
                                 setState(() {});
                               },
                               items: <String>[
-                                'Top',
-                                'Bottom',
-                                'Hidden',
+                                'top'.tr,
+                                'bottom'.tr,
+                                'hidden'.tr,
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -430,15 +471,15 @@ class _InterfaceState extends State<Interface> {
                       Material(
                         color: Colors.transparent,
                         child: ListTile(
-                          title: const Text(
-                            "Clear app data",
-                            style: TextStyle(
+                          title: Text(
+                            "reset".tr,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          subtitle: const Text(
-                            "Clear app's cache and data, it will be like you newly install the app",
-                            style: TextStyle(
+                          subtitle: Text(
+                            "reset_summary".tr,
+                            style: const TextStyle(
                               color: Colors.white38,
                             ),
                           ),
@@ -449,6 +490,7 @@ class _InterfaceState extends State<Interface> {
                           onTap: () {
                             showConfirmationDialog(context, () async {
                               musicBox.put('countryCode', null);
+                              musicBox.put('locale', null);
                               await clearCache();
                               await clearAppData();
                               Restart.restartApp();
@@ -474,17 +516,17 @@ Future<bool?> showConfirmationDialog(BuildContext context, Function onConfirm) {
     barrierDismissible: false, // User must tap a button to dismiss
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Confirm'),
-        content: const Text('Are you sure you want to proceed?'),
+        title: Text('confirm'.tr),
+        content: Text('confirm_message'.tr),
         actions: <Widget>[
           TextButton(
-            child: const Text('Cancel'),
+            child: Text('cancel'.tr),
             onPressed: () {
               Navigator.of(context).pop(false); // Return false
             },
           ),
           TextButton(
-            child: const Text('OK'),
+            child: Text('ok'.tr),
             onPressed: () {
               Navigator.of(context).pop(true);
               onConfirm();

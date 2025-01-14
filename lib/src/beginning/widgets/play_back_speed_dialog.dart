@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 
 class PlaybackSpeedSelector extends StatefulWidget {
@@ -37,9 +38,9 @@ class _PlaybackSpeedSelectorState extends State<PlaybackSpeedSelector> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'Select Playback Speed',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Text(
+            'select_speed',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Column(
@@ -93,7 +94,7 @@ class _PlaybackSpeedSelectorState extends State<PlaybackSpeedSelector> {
                       }
                     } catch (_) {}
                   },
-                  child: const Text("OK"),
+                  child: Text("ok".tr),
                 )
             ],
           ),

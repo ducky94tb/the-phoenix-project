@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:phoenix/src/beginning/pages/playlist/playlist_inside.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/init.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/playlist_back.dart';
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:provider/provider.dart';
+
 import 'add_songs.dart';
 
 List? modifyPlayList = [];
@@ -79,9 +81,9 @@ class _PlaylistState extends State<Playlist>
                                   create: (_) => Seek()),
                               ChangeNotifierProvider<SortProvider>(
                                 create: (_) => SortProvider(),
-                                builder: (context, child) => const AddSongs(
+                                builder: (context, child) => AddSongs(
                                   modify: false,
-                                  playlistName: "Enter Playlist Name",
+                                  playlistName: "enter_playlist_name".tr,
                                 ),
                               ),
                             ],
@@ -97,7 +99,7 @@ class _PlaylistState extends State<Playlist>
                     },
                     child: Center(
                       child: Text(
-                        'Create Playlist',
+                        'create_playlist'.tr,
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         style: TextStyle(
@@ -140,9 +142,9 @@ class _PlaylistState extends State<Playlist>
                     ChangeNotifierProvider<Seek>(create: (_) => Seek()),
                     ChangeNotifierProvider<SortProvider>(
                       create: (_) => SortProvider(),
-                      builder: (context, child) => const AddSongs(
+                      builder: (context, child) => AddSongs(
                         modify: false,
-                        playlistName: "Enter Playlist Name",
+                        playlistName: "enter_playlist_name".tr,
                       ),
                     ),
                   ],

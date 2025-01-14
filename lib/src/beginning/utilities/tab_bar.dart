@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 
 List<Tab> tabsData(double width, double? height) {
@@ -8,7 +9,7 @@ List<Tab> tabsData(double width, double? height) {
   return [
     Tab(
       child: Text(
-        "MANSION",
+        "mansion".tr.toUpperCase(),
         style: TextStyle(
           fontSize: tabBarFontSize,
           letterSpacing: letterspace,
@@ -19,7 +20,7 @@ List<Tab> tabsData(double width, double? height) {
     ),
     Tab(
       child: Text(
-        "TRACKS",
+        "tracks".tr.toUpperCase(),
         style: TextStyle(
           letterSpacing: letterspace,
           fontSize: tabBarFontSize,
@@ -30,7 +31,7 @@ List<Tab> tabsData(double width, double? height) {
     ),
     Tab(
       child: Text(
-        "ALBUMS",
+        "albums".tr.toUpperCase(),
         style: TextStyle(
           letterSpacing: letterspace,
           fontSize: tabBarFontSize,
@@ -63,7 +64,7 @@ List<Tab> tabsData(double width, double? height) {
     ),*/
     Tab(
       child: Text(
-        "PLAYLISTS",
+        "playlists".tr.toUpperCase(),
         style: TextStyle(
           letterSpacing: letterspace,
           fontSize: tabBarFontSize,

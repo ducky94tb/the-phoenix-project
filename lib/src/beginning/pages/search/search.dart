@@ -1,22 +1,24 @@
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_remixicon/flutter_remixicon.dart';
+import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums.dart';
 import 'package:phoenix/src/beginning/pages/albums/albums_inside.dart';
 import 'package:phoenix/src/beginning/pages/artists/artists_inside.dart';
 import 'package:phoenix/src/beginning/pages/now_playing/mini_playing.dart';
 import 'package:phoenix/src/beginning/pages/now_playing/now_playing_sky.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
+import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/artists_back.dart';
+import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:phoenix/src/beginning/widgets/artist_collage.dart';
 import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
-import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/corrupted_file_dialog.dart';
-import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/on_hold.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
-import 'package:flutter/material.dart';
 import 'package:phoenix/src/beginning/widgets/dialogues/quick_tips.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -231,8 +233,7 @@ class _SearchinState extends State<Searchin> {
                                               color: Colors.transparent)),
                                       hintStyle:
                                           TextStyle(color: Colors.grey[350]),
-                                      hintText:
-                                          "Search for songs,albums,artists...",
+                                      hintText: "search".tr,
                                     ),
                                   ),
                                 ),
@@ -793,7 +794,7 @@ class _SearchinState extends State<Searchin> {
                                           child: SizedBox(
                                             height: deviceWidth! / 9,
                                             child: Text(
-                                              "Tracks",
+                                              'tracks'.tr,
                                               style: TextStyle(
                                                   fontSize: deviceWidth! / 15,
                                                   fontWeight: FontWeight.w600,

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
@@ -19,7 +20,7 @@ class Moderna extends StatefulWidget {
 class _ModernaState extends State<Moderna> {
   @override
   Widget build(BuildContext context) {
-    bool showButtons = musicBox.get("miniPlayerPosition") != "Hidden";
+    bool showButtons = musicBox.get("miniPlayerPosition") != "hidden".tr;
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
@@ -160,7 +161,7 @@ class Classix extends StatefulWidget {
 class _ClassixState extends State<Classix> {
   @override
   Widget build(BuildContext context) {
-    bool showButtons = musicBox.get("miniPlayerPosition") != "Hidden";
+    bool showButtons = musicBox.get("miniPlayerPosition") != "hidden".tr;
     return AnimatedContainer(
       duration: Duration(milliseconds: crossfadeDuration),
       decoration: BoxDecoration(
@@ -286,8 +287,8 @@ class _ClassixState extends State<Classix> {
 }
 
 List<Widget> buildMiniPlayerViews(Widget child) {
-  bool showButtons = musicBox.get("miniPlayerPosition") != "Hidden";
-  bool reverse = musicBox.get("miniPlayerPosition") == "Top";
+  bool showButtons = musicBox.get("miniPlayerPosition") != "hidden".tr;
+  bool reverse = musicBox.get("miniPlayerPosition") == "top".tr;
   final views = [
     child,
     Visibility(

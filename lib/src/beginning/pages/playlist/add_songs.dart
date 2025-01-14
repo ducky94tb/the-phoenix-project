@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:phoenix/src/beginning/pages/playlist/playlist.dart';
@@ -55,7 +56,7 @@ class _AddSongsState extends State<AddSongs> {
           floatingActionButton: FloatingActionButton.extended(
             splashColor: Colors.transparent,
             icon: const Icon(Icons.check_rounded, color: Colors.black),
-            label: Text(widget.modify ? "MODIFY" : "CREATE",
+            label: Text(widget.modify ? "modify".tr : "create".tr,
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: deviceWidth! / 25,
@@ -63,13 +64,13 @@ class _AddSongsState extends State<AddSongs> {
             backgroundColor: const Color(0xFF1DB954),
             elevation: 8.0,
             onPressed: () async {
-              if (!((widget.playlistName == "Enter Playlist Name" &&
+              if (!((widget.playlistName == "enter_playlist_name".tr &&
                       nameOfPlaylist != null) ||
-                  (widget.playlistName != "Enter Playlist Name"))) {
+                  (widget.playlistName != "enter_playlist_name".tr))) {
                 Flushbar(
-                  messageText: const Text("Enter a Playlist Name! ¯\\_(ツ)_/¯",
-                      style:
-                          TextStyle(fontFamily: "Futura", color: Colors.white)),
+                  messageText: Text("enter_playlist_name_message".tr,
+                      style: const TextStyle(
+                          fontFamily: "Futura", color: Colors.white)),
                   icon: const Icon(
                     Icons.error_outline,
                     size: 28.0,
@@ -116,8 +117,7 @@ class _AddSongsState extends State<AddSongs> {
                     padding: EdgeInsets.only(top: 50),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    height: 120,
+                    padding: const EdgeInsets.all(10),
                     width: double.infinity,
                     color: Colors.transparent,
                     child: Center(

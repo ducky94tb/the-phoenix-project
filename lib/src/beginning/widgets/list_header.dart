@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:phoenix/src/beginning/begin.dart';
 import 'package:phoenix/src/beginning/pages/artists/artists_inside.dart';
 import 'package:phoenix/src/beginning/pages/genres/genres.dart';
+import 'package:phoenix/src/beginning/pages/genres/genres_inside.dart';
+import 'package:phoenix/src/beginning/pages/playlist/playlist_inside.dart';
+import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 import 'package:phoenix/src/beginning/utilities/constants.dart';
 import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/albums_back.dart';
 import 'package:phoenix/src/beginning/utilities/page_backend/genres_back.dart';
+
 import '../utilities/page_backend/artists_back.dart';
-import 'package:phoenix/src/beginning/pages/genres/genres_inside.dart';
-import 'package:phoenix/src/beginning/pages/playlist/playlist_inside.dart';
-import 'package:phoenix/src/beginning/utilities/audio_handlers/previous_play_skip.dart';
 
 class ListHeader extends StatelessWidget {
   final double? widthOfDevice;
   final List<SongModel>? listOfSong;
   final String rnAccess;
   final List<String> trackSorts = const [
-    'Title',
     'Date',
+    'Title',
     'Album',
-    'Artist',
+    // 'Artist',
     'Ascending',
     'Descending'
   ];
@@ -40,8 +42,10 @@ class ListHeader extends StatelessWidget {
     'Ascending',
     'Descending'
   ];
+
   const ListHeader(this.widthOfDevice, this.listOfSong, this.rnAccess,
       {super.key, this.stateNotifier});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -113,7 +117,7 @@ class ListHeader extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        "${listOfSong!.length} Tracks",
+                        "${listOfSong!.length} ${'tracks'.tr}",
                         style:
                             const TextStyle(fontSize: 15, color: Colors.white),
                       ),
@@ -192,7 +196,7 @@ class ListHeader extends StatelessWidget {
   tracksBuilder() {
     List<PopupMenuEntry<String>> categories = [];
     for (int i = 0; i < trackSorts.length; i++) {
-      if (i == 4) {
+      if (i == 3) {
         categories.add(const PopupMenuDivider());
       }
       categories.add(
@@ -203,7 +207,7 @@ class ListHeader extends StatelessWidget {
             children: [
               Text(trackSorts[i], style: const TextStyle(color: Colors.white)),
               Visibility(
-                  visible: (musicBox.get('trackSort') ?? [0, 4]).contains(i),
+                  visible: (musicBox.get('trackSort') ?? [0, 3]).contains(i),
                   child: Icon(Icons.check, color: kCorrect))
             ],
           ),
@@ -215,16 +219,16 @@ class ListHeader extends StatelessWidget {
 
   Future<void> tracksSelected(String result) async {
     switch (result) {
-      case 'Title':
-        List<int> trackSort = musicBox.get('trackSort') ?? [0, 4];
+      case 'Date':
+        List<int> trackSort = musicBox.get('trackSort') ?? [0, 3];
         if (trackSort[0] != 0) {
           trackSort[0] = 0;
           await musicBox.put('trackSort', trackSort);
           refreshSongs();
         }
         break;
-      case 'Date':
-        List<int> trackSort = musicBox.get('trackSort') ?? [0, 4];
+      case 'Title':
+        List<int> trackSort = musicBox.get('trackSort') ?? [0, 3];
         if (trackSort[0] != 1) {
           trackSort[0] = 1;
           await musicBox.put('trackSort', trackSort);
@@ -232,33 +236,25 @@ class ListHeader extends StatelessWidget {
         }
         break;
       case 'Album':
-        List<int> trackSort = musicBox.get('trackSort') ?? [0, 4];
+        List<int> trackSort = musicBox.get('trackSort') ?? [0, 3];
         if (trackSort[0] != 2) {
           trackSort[0] = 2;
           await musicBox.put('trackSort', trackSort);
           refreshSongs();
         }
         break;
-      case 'Artist':
-        List<int> trackSort = musicBox.get('trackSort') ?? [0, 4];
-        if (trackSort[0] != 3) {
-          trackSort[0] = 3;
-          await musicBox.put('trackSort', trackSort);
-          refreshSongs();
-        }
-        break;
       case 'Ascending':
-        List<int> trackSort = musicBox.get('trackSort') ?? [0, 4];
-        if (trackSort[1] != 4) {
-          trackSort[1] = 4;
+        List<int> trackSort = musicBox.get('trackSort') ?? [0, 3];
+        if (trackSort[1] != 3) {
+          trackSort[1] = 3;
           await musicBox.put('trackSort', trackSort);
           refreshSongs();
         }
         break;
       case 'Descending':
-        List<int> trackSort = musicBox.get('trackSort') ?? [0, 4];
-        if (trackSort[1] != 5) {
-          trackSort[1] = 5;
+        List<int> trackSort = musicBox.get('trackSort') ?? [0, 3];
+        if (trackSort[1] != 4) {
+          trackSort[1] = 4;
           await musicBox.put('trackSort', trackSort);
           refreshSongs();
         }

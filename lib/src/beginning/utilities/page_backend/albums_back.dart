@@ -73,13 +73,12 @@ gettinAlbums() async {
   allAlbumsName = [];
   songList = [];
   List songSortTypes = [
-    SongSortType.TITLE,
     SongSortType.DATE_ADDED,
+    SongSortType.TITLE,
     SongSortType.ALBUM,
-    SongSortType.ARTIST
   ];
-  final sortType = songSortTypes[(musicBox.get('trackSort') ?? [0])[0]];
-  final orderType = (musicBox.get('trackSort') ?? [0, 4])[1] == 4
+  final sortType = songSortTypes[(musicBox.get('trackSort') ?? [0, 3])[0]];
+  final orderType = (musicBox.get('trackSort') ?? [0, 3])[1] == 3
       ? OrderType.ASC_OR_SMALLER
       : OrderType.DESC_OR_GREATER;
   try {
