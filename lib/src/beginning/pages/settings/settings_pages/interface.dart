@@ -13,7 +13,7 @@ import 'package:phoenix/src/beginning/utilities/global_variables.dart';
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:phoenix/src/beginning/widgets/artwork_background.dart';
 import 'package:provider/provider.dart';
-import 'package:restart_app/restart_app.dart';
+// import 'package:restart_app/restart_app.dart';
 
 Future<void> clearCache() async {
   try {
@@ -493,7 +493,7 @@ class _InterfaceState extends State<Interface> {
                               musicBox.put('locale', null);
                               await clearCache();
                               await clearAppData();
-                              Restart.restartApp();
+                              // Restart.restartApp();
                             });
                           },
                         ),

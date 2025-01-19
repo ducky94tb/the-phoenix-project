@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -56,7 +57,7 @@ class _BeginState extends State<Begin>
     setScreenFrames();
     audioServiceStream();
     tabController = TabController(vsync: this, length: 4, initialIndex: 1);
-    visualizerNotificationInit();
+    // visualizerNotificationInit();
     WidgetsBinding.instance.addObserver(this);
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Begin.refreshIndicatorKey.currentState?.show();
@@ -537,7 +538,9 @@ class _BeginState extends State<Begin>
   }
 
   Future<void> setScreenFrames() async {
-    await FlutterDisplayMode.setHighRefreshRate();
+    if (TargetPlatform.android == defaultTargetPlatform) {
+      await FlutterDisplayMode.setHighRefreshRate();
+    }
   }
 
   Future<bool> fivesecsbacker() async {

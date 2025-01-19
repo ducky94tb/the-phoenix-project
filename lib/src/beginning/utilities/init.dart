@@ -2,12 +2,12 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:audio_service/audio_service.dart';
-import 'package:device_info/device_info.dart';
+// import 'package:device_info/device_info.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:metadata_god/metadata_god.dart';
+// import 'package:metadata_god/metadata_god.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:phoenix/src/beginning/begin.dart';
 import 'package:phoenix/src/beginning/utilities/apis/image_scrape.dart';
@@ -53,11 +53,11 @@ dataInit() async {
   await remoteConfig.fetchAndActivate();
 
   musicBox = await Hive.openBox('musicDataBox');
-  var info = await DeviceInfoPlugin().androidInfo;
-  androidSdkVersion = info.version.sdkInt;
-  if (androidSdkVersion >= 30) {
-    MetadataGod.initialize();
-  }
+  // var info = await DeviceInfoPlugin().androidInfo;
+  // androidSdkVersion = info.version.sdkInt;
+  // if (androidSdkVersion >= 30) {
+  //   MetadataGod.initialize();
+  // }
   // isAndroid11Above = info.version.sdkInt > 29 ? true : false;
   glassBlur = ImageFilter.blur(
       sigmaX: musicBox.get("glassBlur") ?? 10,

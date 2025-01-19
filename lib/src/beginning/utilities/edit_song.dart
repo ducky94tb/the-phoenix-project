@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:media_store_plus/media_store_plus.dart';
-import 'package:metadata_god/metadata_god.dart' as god;
+// import 'package:metadata_god/metadata_god.dart' as god;
 // import 'package:metadata_god/bridge_generated.dart' as god;
 import 'package:mime/mime.dart';
 // import 'package:on_audio_edit/on_audio_edit.dart';
@@ -54,27 +54,6 @@ Future<bool> editSong({
     }
     // Set metadata to file
     try {
-      // MetadataGod.
-      await god.MetadataGod.writeMetadata(
-        file: applicationFileDirectory + songFile.split("/").last,
-        metadata: god.Metadata(
-          title: title,
-          artist: artist,
-          album: album,
-          durationMs: 2048000,
-          genre: genre,
-          year: int.parse(year ?? "2020"),
-          albumArtist: albumArtist,
-          fileSize: BigInt.from(songLength).toInt(),
-          picture: artwork == null
-              ? null
-              : god.Picture(
-                  data: artworkBytes,
-                  mimeType: lookupMimeType(artwork)!,
-                ),
-        ),
-      );
-
       Uri? uri = await MediaStore().getUriFromFilePath(path: songFile);
       if (uri != null) {
         bool status = await MediaStore().editFile(

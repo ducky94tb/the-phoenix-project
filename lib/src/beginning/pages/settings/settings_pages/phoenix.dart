@@ -9,7 +9,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:phoenix/src/beginning/utilities/provider/provider.dart';
 import 'package:phoenix/src/beginning/pages/settings/settings_pages/license.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Phoenix extends StatefulWidget {
   const Phoenix({super.key});
@@ -224,7 +223,6 @@ class _PhoenixState extends State<Phoenix> {
                                                 path:
                                                     'sincerelyshaan@protonmail.com',
                                               );
-                                              launchUrl(emailLaunchUri);
                                             }),
                                         IconButton(
                                             iconSize: orientedCar
@@ -235,10 +233,6 @@ class _PhoenixState extends State<Phoenix> {
                                             onPressed: () async {
                                               Uri url = Uri.parse(
                                                   "https://github.com/shaan-mephobic/The-Phoenix-Project");
-                                              await canLaunchUrl(url)
-                                                  ? await launchUrl(url)
-                                                  : throw Exception(
-                                                      'Could not launch $url');
                                             }),
                                         IconButton(
                                             iconSize: orientedCar
@@ -289,10 +283,6 @@ class _PhoenixState extends State<Phoenix> {
                                                   const Duration(seconds: 2));
                                               Uri url = Uri.parse(
                                                   "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-                                              await canLaunchUrl(url)
-                                                  ? await launchUrl(url)
-                                                  : throw Exception(
-                                                      'Could not launch $url');
                                             }),
                                         Padding(
                                             padding: EdgeInsets.only(

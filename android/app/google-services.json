@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272804297587",
+    "project_id": "audio-truyen-ccd4d",
+    "storage_bucket": "audio-truyen-ccd4d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272804297587:android:767ee8dcd38b53a3a2a306",
+        "android_client_info": {
+          "package_name": "com.ducky.audio.againstthegods"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfeUklwKWM7GM956m-HBNecLnPdGXCEW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

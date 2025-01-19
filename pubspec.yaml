@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.5.0+15
 
 environment:
-  sdk: ^3.0.0
+  sdk: '>=3.1.5 <4.0.0'
 
 dependencies:
   flutter:
@@ -39,23 +39,19 @@ dependencies:
   # AUDIO Related
   audio_service: ^0.18.15
   audio_session: ^0.1.21
-  flutter_ffmpeg: ^0.4.2
   just_audio: ^0.9.41
 #  on_audio_edit: ^1.5.1
   on_audio_query: '2.9.0'
-  metadata_god: '0.5.2+1'
+#  metadata_god: '0.5.2+1'
 
   # FLUTTER Related
-  awesome_notifications: ^0.9.3+1
   dart_des: ^1.0.2
-  device_info: ^2.0.3
+#  device_info: ^2.0.3
   flutter_displaymode: ^0.6.0
   # flutter_isolate: ^2.0.1-pre
   image_picker: ^1.1.2
-  path_provider: ^2.1.4
   permission_handler: ^11.3.1
   provider: ^6.1.2
-  screenshot: ^2.5.0
 #  share_plus: ^8.0.3
   image: ^4.2.0
   elastic_widgets:
@@ -73,8 +69,6 @@ dependencies:
   cached_network_image: ^3.3.1
 
   # DATABASE Related
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
 
 
   # ICONS Related
@@ -90,7 +84,6 @@ dependencies:
   http: ^1.2.2
   html: ^0.15.0
   html_unescape: ^2.0.0
-  url_launcher: ^6.3.1
 
   country_flags: ^3.2.0
   firebase_core: ^3.4.0
@@ -99,8 +92,11 @@ dependencies:
   fluttertoast: ^8.2.8
   googleapis_auth: ^1.6.0
   firebase_remote_config: ^5.1.0
-  restart_app: ^1.2.1
   get: ^4.6.6
+  screenshot: ^2.5.0
+#  awesome_notifications: ^0.10.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

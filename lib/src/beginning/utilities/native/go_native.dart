@@ -12,7 +12,7 @@ kotlinVisualizer() async {
     if (await Permission.microphone.request().isGranted) {
       await platform.invokeMethod("KotlinVisualizer");
       activeSession = true;
-      await startVisualizerNotification();
+      // await startVisualizerNotification();
     }
   } catch (e) {
     throw Exception(e);
@@ -23,7 +23,7 @@ stopkotlinVisualizer() async {
   try {
     await platform.invokeMethod("ResetKot");
     activeSession = false;
-    await stopVisualizerNotification();
+    // await stopVisualizerNotification();
   } catch (e) {
     throw Exception(e);
   }
