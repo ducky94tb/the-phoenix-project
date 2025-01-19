@@ -14,11 +14,11 @@ class AudioPlayerTask extends BaseAudioHandler {
     handleInterruptions: false,
     androidApplyAudioAttributes: true,
     handleAudioSessionActivation: false,
-    audioPipeline: AudioPipeline(
-      androidAudioEffects: [
-        equalizer,
-      ],
-    ),
+    // audioPipeline: AudioPipeline(
+    //   androidAudioEffects: [
+    //     equalizer,
+    //   ],
+    // ),
   );
   int indexOfQueue = 0;
   int addToQueueIndex = -1;
